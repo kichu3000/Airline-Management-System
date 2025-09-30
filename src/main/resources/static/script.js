@@ -85,6 +85,43 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === loginModal) closeLoginModal();
         });
     }
+        const signupModal = document.getElementById('signupModal');
+        const closeSignupModalButton = document.getElementById('closeSignupModal');
+        const openSignupFromLogin = document.getElementById('openSignupFromLogin'); // the "Sign up" link in login modal
+
+        // Open signup modal from login
+        if (openSignupFromLogin) {
+            openSignupFromLogin.addEventListener('click', (e) => {
+                e.preventDefault();      // prevent default link behavior
+                closeLoginModal();       // close login modal
+                signupModal.classList.add('show'); // open signup modal
+            });
+        }
+
+        // Close signup modal
+        if (closeSignupModalButton) {
+            closeSignupModalButton.addEventListener('click', () => signupModal.classList.remove('show'));
+        }
+
+        // Close on backdrop click
+        if (signupModal) {
+            signupModal.addEventListener('click', (e) => {
+                if (e.target === signupModal) signupModal.classList.remove('show');
+            });
+        }
+        // Elements
+        const openLoginFromSignup = document.getElementById('openLoginFromSignup'); // "Login" link in signup modal
+
+        // Open login modal from signup
+        if (openLoginFromSignup) {
+            openLoginFromSignup.addEventListener('click', (e) => {
+                e.preventDefault();        // Prevent default link behavior
+                signupModal?.classList.remove('show'); // Close signup modal
+                loginModal?.classList.add('show');     // Open login modal
+            });
+        }
+
+
 
     // User Profile Dropdown Toggle
     const userMenuButton = document.getElementById('user-menu-button');
@@ -104,6 +141,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+         
+
 
     // Toast Notifications
     const toastNotification = document.getElementById('toastNotification');
