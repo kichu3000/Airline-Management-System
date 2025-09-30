@@ -19,7 +19,7 @@ public class AuthController {
     public String signup(@RequestParam String name,
             @RequestParam String email,
             @RequestParam String password) {
-        User user = new User();
+        User user = new User(); 
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);

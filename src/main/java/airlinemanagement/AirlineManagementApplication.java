@@ -9,3 +9,6 @@ public class AirlineManagementApplication {
         SpringApplication.run(AirlineManagementApplication.class, args);
     }
 }
+
+// Form → Controller → Service → Repository → Database → back through the chain
+// → Response to user
