@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // find by the name. The List will give you more than one data.
     List<User> findByName(String name);
 
+    boolean existsByEmail(String email);
     // Add more in the future if I want
 
 }
