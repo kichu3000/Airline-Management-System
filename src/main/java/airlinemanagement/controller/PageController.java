@@ -10,4 +10,8 @@ public class PageController {
         return "index";
     }
 
+    @GetMapping("/flight")
+    public String flight() {
+        return "flight";
+    }
 }

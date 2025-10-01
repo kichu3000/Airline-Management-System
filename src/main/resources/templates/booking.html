@@ -1,0 +1,103 @@
+<section id="booking" class="page-section hidden p-6 md:p-10">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Complete Your Booking</h2>
+                <div class="grid lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-8">
+                        <div class="card-custom p-6 md:p-8">
+                            <h3 class="text-xl font-semibold mb-6">Passenger Details</h3>
+                            <form class="space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <label for="firstName" class="form-label-custom">First Name</label>
+                                        <input type="text" id="firstName" class="input-field-custom" placeholder="John">
+                                    </div>
+                                    <div>
+                                        <label for="lastName" class="form-label-custom">Last Name</label>
+                                        <input type="text" id="lastName" class="input-field-custom" placeholder="Doe">
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="email" class="form-label-custom">Email Address</label>
+                                    <input type="email" id="email" class="input-field-custom" placeholder="john.doe@example.com">
+                                </div>
+                                <div>
+                                    <label for="phone" class="form-label-custom">Phone Number</label>
+                                    <input type="tel" id="phone" class="input-field-custom" placeholder="+1 234 567 8900">
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="card-custom p-6 md:p-8">
+                            <h3 class="text-xl font-semibold mb-6">Select Your Seat</h3>
+                            <div class="bg-gray-100 p-4 rounded-lg mb-4 text-center text-sm text-gray-600">
+                                <i data-lucide="screen-share" class="inline-block mr-2 lucide-sm"></i> Airplane Screen
+                            </div>
+                            <div class="overflow-x-auto">
+                                <div id="seatMapContainer" class="grid grid-cols-7 gap-1 md:gap-2 mx-auto w-max p-2 md:p-4 bg-white rounded-lg shadow-inner">
+                                    <span class="col-span-1 flex items-center justify-center text-gray-500 font-medium">1</span>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1A">A</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1B">B</div>
+                                    <div class="seat-base seat-occupied w-8 h-8 md:w-10 md:h-10" data-seat="1C">C</div>
+                                    <div class="col-span-1"></div> <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1D">D</div>
+                                    <div class="seat-base seat-selected w-8 h-8 md:w-10 md:h-10" data-seat="1E">E</div> <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="1F">F</div>
+
+                                    <span class="col-span-1 flex items-center justify-center text-gray-500 font-medium">2</span>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2A">A</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2B">B</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2C">C</div>
+                                    <div class="col-span-1"></div> <div class="seat-base seat-occupied w-8 h-8 md:w-10 md:h-10" data-seat="2D">D</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2E">E</div>
+                                    <div class="seat-base seat-available w-8 h-8 md:w-10 md:h-10" data-seat="2F">F</div>
+                                    </div>
+                            </div>
+                            <div class="flex justify-center space-x-4 mt-6 text-sm">
+                                <div class="flex items-center"><div class="w-4 h-4 seat-available rounded mr-2"></div> Available</div>
+                                <div class="flex items-center"><div class="w-4 h-4 seat-selected rounded mr-2"></div> Selected</div>
+                                <div class="flex items-center"><div class="w-4 h-4 seat-occupied rounded mr-2"></div> Occupied</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <aside class="lg:col-span-1">
+                        <div class="card-custom p-6 md:p-8 sticky top-24">
+                            <h3 class="text-xl font-semibold mb-6 border-b pb-3">Booking Summary</h3>
+                            <div class="space-y-3 mb-6">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Flight: AL 205</span>
+                                    <span class="font-medium">JFK <i data-lucide="arrow-right" class="inline-block lucide-sm"></i> LHR</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Date:</span>
+                                    <span class="font-medium">Oct 28, 2024</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Passengers:</span>
+                                    <span class="font-medium">1 Adult</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Selected Seat:</span>
+                                    <span class="font-medium" id="selectedSeatDisplay">1E</span>
+                                </div>
+                            </div>
+                            <div class="border-t pt-4 space-y-3">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Subtotal:</span>
+                                    <span class="font-medium">$350.00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-600">Taxes & Fees:</span>
+                                    <span class="font-medium">$45.50</span>
+                                </div>
+                                <div class="flex justify-between text-xl font-bold text-sky-700">
+                                    <span>Total:</span>
+                                    <span>$395.50</span>
+                                </div>
+                            </div>
+                            <button id="confirmBookingButton" class="btn-custom btn-primary-custom w-full mt-8">
+                                <i data-lucide="check-circle" class="inline-block mr-1 lucide-sm"></i> Confirm & Pay
+                            </button>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
