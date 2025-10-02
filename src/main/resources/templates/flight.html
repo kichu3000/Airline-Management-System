@@ -1,46 +1,47 @@
 <html>
     <head th:replace="fragments/head::headFragment"></head>
 
-    <body>
+    <body class="flex flex-col min-h-screen">
         <div th:replace="fragments/nav :: navbar"></div>
         <div>
-            <div id="skeletonLoaderResults"
-                class="flex flex-col items-center space-y-6 pt-12">
-                <!-- Skeleton Card 1 -->
-                <div
-                    class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 w-full max-w-4xl bg-white rounded-lg shadow-md">
-                    <div class="flex items-center space-x-4">
-                        <div
-                            class="skeleton-custom w-12 h-12 rounded-full bg-gray-300"></div>
-                        <div class="flex flex-col space-y-1">
+            <main class="flex-1">
+                <div id="skeletonLoaderResults"
+                    class="flex flex-col items-center space-y-6 pt-12">
+                    <!-- Skeleton Card 1 -->
+                    <div
+                        class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 w-full max-w-4xl bg-white rounded-lg shadow-md">
+                        <div class="flex items-center space-x-4">
                             <div
-                                class="skeleton-custom h-4 w-32 bg-gray-300 rounded"></div>
+                                class="skeleton-custom w-12 h-12 rounded-full bg-gray-300"></div>
+                            <div class="flex flex-col space-y-1">
+                                <div
+                                    class="skeleton-custom h-4 w-32 bg-gray-300 rounded"></div>
+                                <div
+                                    class="skeleton-custom h-3 w-24 bg-gray-300 rounded"></div>
+                            </div>
+                        </div>
+                        <div class="text-center md:text-left">
                             <div
-                                class="skeleton-custom h-3 w-24 bg-gray-300 rounded"></div>
+                                class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
+                            <div
+                                class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <div
+                                class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
+                            <div
+                                class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
+                        </div>
+                        <div class="text-center md:text-right">
+                            <div
+                                class="skeleton-custom h-6 w-24 mb-2 bg-gray-300 rounded"></div>
+                            <div
+                                class="skeleton-custom h-8 w-32 rounded-lg bg-gray-300"></div>
                         </div>
                     </div>
-                    <div class="text-center md:text-left">
-                        <div
-                            class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
-                        <div
-                            class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <div
-                            class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
-                        <div
-                            class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
-                    </div>
-                    <div class="text-center md:text-right">
-                        <div
-                            class="skeleton-custom h-6 w-24 mb-2 bg-gray-300 rounded"></div>
-                        <div
-                            class="skeleton-custom h-8 w-32 rounded-lg bg-gray-300"></div>
-                    </div>
-                </div>
 
-                <!-- Skeleton Card 2 -->
-                <!-- <div
+                    <!-- Skeleton Card 2 -->
+                    <!-- <div
                     class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 w-full max-w-4xl bg-white rounded-lg shadow-md">
                     <div class="flex items-center space-x-4">
                         <div
@@ -71,114 +72,90 @@
                             class="skeleton-custom h-8 w-32 rounded-lg bg-gray-300"></div>
                     </div>
                 </div> -->
-            </div>
+                </div>
 
-            <div id="actualFlightResults" class="space-y-6 hidden">
-                <div class="card-custom hover:shadow-xl transition-shadow">
-                    <div
-                        class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <div class="flex items-center space-x-4">
-                            <img
-                                src="https://placehold.co/48x48/0EA5E9/FFFFFF?text=AL"
-                                alt="Airline Logo"
-                                class="rounded-full" />
-                            <div>
-                                <h4 class="font-semibold text-lg">QuinJet
-                                    Airways</h4>
-                                <p class="text-sm text-gray-500">AL 205</p>
+                <div id="actualFlightResults" class="space-y-6 hidden">
+                    <div class="card-custom hover:shadow-xl transition-shadow">
+                        <div
+                            class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                            <div class="flex items-center space-x-4">
+                                <img
+                                    src="https://placehold.co/48x48/0EA5E9/FFFFFF?text=AL"
+                                    alt="Airline Logo"
+                                    class="rounded-full" />
+                                <div>
+                                    <h4 class="font-semibold text-lg">QuinJet
+                                        Airways</h4>
+                                    <p class="text-sm text-gray-500">AL 205</p>
+                                </div>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <p class="font-medium">08:00 AM</p>
+                                <p class="text-sm text-gray-500">New York
+                                    (JFK)</p>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <p class="font-medium">10:30 AM</p>
+                                <p class="text-sm text-gray-500">London
+                                    (LHR)</p>
+                            </div>
+                            <div class="text-center md:text-right">
+                                <p
+                                    class="text-2xl font-bold text-sky-600">$350</p>
+                                <button
+                                    class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2"
+                                    data-page="booking">
+                                    Select Flight
+                                </button>
                             </div>
                         </div>
-                        <div class="text-center md:text-left">
-                            <p class="font-medium">08:00 AM</p>
-                            <p class="text-sm text-gray-500">New York (JFK)</p>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <p class="font-medium">10:30 AM</p>
-                            <p class="text-sm text-gray-500">London (LHR)</p>
-                        </div>
-                        <div class="text-center md:text-right">
-                            <p class="text-2xl font-bold text-sky-600">$350</p>
-                            <button
-                                class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2"
-                                data-page="booking">
-                                Select Flight
-                            </button>
+                        <div
+                            class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
+                            2h 30m duration | Non-stop
                         </div>
                     </div>
-                    <div
-                        class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
-                        2h 30m duration | Non-stop
-                    </div>
-                </div>
-                <div class="card-custom hover:shadow-xl transition-shadow">
-                    <div
-                        class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                        <div class="flex items-center space-x-4">
-                            <img
-                                src="https://placehold.co/48x48/EC4899/FFFFFF?text=SH"
-                                alt="Airline Logo"
-                                class="rounded-full" />
-                            <div>
-                                <h4 class="font-semibold text-lg">SkyHigh
-                                    Airlines</h4>
-                                <p class="text-sm text-gray-500">SH 712</p>
+                    <div class="card-custom hover:shadow-xl transition-shadow">
+                        <div
+                            class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                            <div class="flex items-center space-x-4">
+                                <img
+                                    src="https://placehold.co/48x48/EC4899/FFFFFF?text=SH"
+                                    alt="Airline Logo"
+                                    class="rounded-full" />
+                                <div>
+                                    <h4 class="font-semibold text-lg">SkyHigh
+                                        Airlines</h4>
+                                    <p class="text-sm text-gray-500">SH 712</p>
+                                </div>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <p class="font-medium">09:15 AM</p>
+                                <p class="text-sm text-gray-500">New York
+                                    (JFK)</p>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <p class="font-medium">12:00 PM</p>
+                                <p class="text-sm text-gray-500">London
+                                    (LHR)</p>
+                            </div>
+                            <div class="text-center md:text-right">
+                                <p
+                                    class="text-2xl font-bold text-sky-600">$320</p>
+                                <button
+                                    class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2"
+                                    data-page="booking">
+                                    Select Flight
+                                </button>
                             </div>
                         </div>
-                        <div class="text-center md:text-left">
-                            <p class="font-medium">09:15 AM</p>
-                            <p class="text-sm text-gray-500">New York (JFK)</p>
+                        <div
+                            class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
+                            2h 45m duration | Non-stop
                         </div>
-                        <div class="text-center md:text-left">
-                            <p class="font-medium">12:00 PM</p>
-                            <p class="text-sm text-gray-500">London (LHR)</p>
-                        </div>
-                        <div class="text-center md:text-right">
-                            <p class="text-2xl font-bold text-sky-600">$320</p>
-                            <button
-                                class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2"
-                                data-page="booking">
-                                Select Flight
-                            </button>
-                        </div>
-                    </div>
-                    <div
-                        class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
-                        2h 45m duration | Non-stop
                     </div>
                 </div>
-            </div>
-
-            <nav
-                class="mt-8 flex justify-center items-center space-x-2"
-                aria-label="Pagination">
-                <a
-                    href="#"
-                    class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                    <span class="sr-only">Previous</span>
-                    <i data-lucide="chevron-left" class="h-5 w-5"></i>
-                </a>
-                <a
-                    href="#"
-                    aria-current="page"
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-sky-50 text-sm font-medium text-sky-600 z-10">1</a>
-                <a
-                    href="#"
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
-                <a
-                    href="#"
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hidden md:inline-flex">3</a>
-                <span
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700">...</span>
-                <a
-                    href="#"
-                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">8</a>
-                <a
-                    href="#"
-                    class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
-                    <span class="sr-only">Next</span>
-                    <i data-lucide="chevron-right" class="h-5 w-5"></i>
-                </a>
-            </nav>
+            </main>
         </div>
+        <!-- <div th:replace="fragments/footer :: footerFragment"></div> -->
     </body>
 </html>

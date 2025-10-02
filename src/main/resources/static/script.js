@@ -141,7 +141,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-         
 
 
     // Toast Notifications
