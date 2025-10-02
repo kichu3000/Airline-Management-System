@@ -17,4 +17,12 @@ public class UserService {
         userRepo.save(user);
         return "Stored sucessfully";
     }
+
+    public User validateUser(String email, String password) {
+        User user = userRepo.findByEmail(email);// the findByEmail method will be auto-generated
+        if (user != null && user.getPassword().equals(password)) {
+            return user;
+        }
+        return null;
+    }
 }

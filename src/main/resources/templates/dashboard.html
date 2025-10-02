@@ -1,117 +1,117 @@
 <section id="dashboard" class="page-section hidden p-6 md:p-10">
-                <div class="max-w-7xl mx-auto">
-                    <h2 class="text-3xl font-bold text-gray-800 mb-8">User
-                        Dashboard</h2>
-                    <div class="grid lg:grid-cols-4 gap-8">
-                        <div class="lg:col-span-1">
-                            <div class="card-custom p-6">
-                                <div
-                                    class="flex flex-col items-center mb-6">
-                                    <img
-                                        src="https://placehold.co/120x120/E2E8F0/94A3B8?text=User"
-                                        alt="User Avatar"
-                                        class="w-24 h-24 rounded-full mb-4">
-                                    <h3 class="text-xl font-semibold">John
-                                        Doe</h3>
+    <div class="max-w-7xl mx-auto">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">User
+            Dashboard</h2>
+        <div class="grid lg:grid-cols-4 gap-8">
+            <div class="lg:col-span-1">
+                <div class="card-custom p-6">
+                    <div
+                        class="flex flex-col items-center mb-6">
+                        <img
+                            src="https://placehold.co/120x120/E2E8F0/94A3B8?text=User"
+                            alt="User Avatar"
+                            class="w-24 h-24 rounded-full mb-4">
+                        <h3 class="text-xl font-semibold">John
+                            Doe</h3>
+                        <p
+                            class="text-sm text-gray-500">john.doe@example.com</p>
+                    </div>
+                    <nav class="space-y-2">
+                        <a href="#upcomingBookings"
+                            class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-sky-700 bg-sky-100">
+                            <i data-lucide="calendar-check"
+                                class="mr-3 lucide-sm"></i>
+                            Upcoming
+                            Bookings
+                        </a>
+                        <a href="#bookingHistory"
+                            class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+                            <i data-lucide="history"
+                                class="mr-3 lucide-sm"></i>
+                            Booking
+                            History
+                        </a>
+                        <a href="#profileSettings"
+                            class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+                            <i data-lucide="user-cog"
+                                class="mr-3 lucide-sm"></i>
+                            Profile
+                            Settings
+                        </a>
+                        <a href="#" id="dashboardLogoutButton"
+                            class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-red-100 text-red-600">
+                            <i data-lucide="log-out"
+                                class="mr-3 lucide-sm"></i>
+                            Logout
+                        </a>
+                    </nav>
+                </div>
+            </div>
+            <div class="lg:col-span-3">
+                <div id="upcomingBookingsContent"
+                    class="dashboard-content card-custom p-6 md:p-8">
+                    <h3
+                        class="text-2xl font-semibold mb-6">Upcoming
+                        Bookings</h3>
+                    <div class="space-y-6">
+                        <div
+                            class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                            <div
+                                class="flex justify-between items-start">
+                                <div>
                                     <p
-                                        class="text-sm text-gray-500">john.doe@example.com</p>
+                                        class="text-lg font-semibold text-sky-700">New
+                                        York (JFK) <i
+                                            data-lucide="arrow-right"
+                                            class="inline-block lucide-sm"></i>
+                                        London (LHR)</p>
+                                    <p
+                                        class="text-sm text-gray-500">Flight
+                                        AL 205 | Oct 28, 2024 -
+                                        08:00 AM</p>
                                 </div>
-                                <nav class="space-y-2">
-                                    <a href="#upcomingBookings"
-                                        class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-sky-700 bg-sky-100">
-                                        <i data-lucide="calendar-check"
-                                            class="mr-3 lucide-sm"></i>
-                                        Upcoming
-                                        Bookings
-                                    </a>
-                                    <a href="#bookingHistory"
-                                        class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
-                                        <i data-lucide="history"
-                                            class="mr-3 lucide-sm"></i>
-                                        Booking
-                                        History
-                                    </a>
-                                    <a href="#profileSettings"
-                                        class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
-                                        <i data-lucide="user-cog"
-                                            class="mr-3 lucide-sm"></i>
-                                        Profile
-                                        Settings
-                                    </a>
-                                    <a href="#" id="dashboardLogoutButton"
-                                        class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-red-100 text-red-600">
-                                        <i data-lucide="log-out"
-                                            class="mr-3 lucide-sm"></i>
-                                        Logout
-                                    </a>
-                                </nav>
+                                <span
+                                    class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Confirmed</span>
                             </div>
-                        </div>
-                        <div class="lg:col-span-3">
-                            <div id="upcomingBookingsContent"
-                                class="dashboard-content card-custom p-6 md:p-8">
-                                <h3
-                                    class="text-2xl font-semibold mb-6">Upcoming
-                                    Bookings</h3>
-                                <div class="space-y-6">
-                                    <div
-                                        class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                                        <div
-                                            class="flex justify-between items-start">
-                                            <div>
-                                                <p
-                                                    class="text-lg font-semibold text-sky-700">New
-                                                    York (JFK) <i
-                                                        data-lucide="arrow-right"
-                                                        class="inline-block lucide-sm"></i>
-                                                    London (LHR)</p>
-                                                <p
-                                                    class="text-sm text-gray-500">Flight
-                                                    AL 205 | Oct 28, 2024 -
-                                                    08:00 AM</p>
-                                            </div>
-                                            <span
-                                                class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Confirmed</span>
-                                        </div>
-                                        <div class="mt-4 flex space-x-4">
-                                            <button
-                                                class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i
-                                                    data-lucide="eye"
-                                                    class="inline-block mr-1 lucide-sm"></i>
-                                                View Details</button>
-                                            <button
-                                                class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i
-                                                    data-lucide="edit-3"
-                                                    class="inline-block mr-1 lucide-sm"></i>
-                                                Modify</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="bookingHistoryContent"
-                                class="dashboard-content card-custom p-6 md:p-8 hidden">
-                                <h3
-                                    class="text-2xl font-semibold mb-6">Booking
-                                    History</h3>
-                                <p class="text-gray-600">No past bookings
-                                    found.</p>
-                            </div>
-                            <div id="profileSettingsContent"
-                                class="dashboard-content card-custom p-6 md:p-8 hidden">
-                                <h3
-                                    class="text-2xl font-semibold mb-6">Profile
-                                    Settings</h3>
-                                <form class="space-y-6">
-                                    <p class="text-gray-600">Profile editing
-                                        form will be here. (e.g., Name,
-                                        Email,
-                                        Password change)</p>
-                                    <button type="submit"
-                                        class="btn-custom btn-primary-custom">Save
-                                        Changes</button>
-                                </form>
+                            <div class="mt-4 flex space-x-4">
+                                <button
+                                    class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i
+                                        data-lucide="eye"
+                                        class="inline-block mr-1 lucide-sm"></i>
+                                    View Details</button>
+                                <button
+                                    class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i
+                                        data-lucide="edit-3"
+                                        class="inline-block mr-1 lucide-sm"></i>
+                                    Modify</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+                <div id="bookingHistoryContent"
+                    class="dashboard-content card-custom p-6 md:p-8 hidden">
+                    <h3
+                        class="text-2xl font-semibold mb-6">Booking
+                        History</h3>
+                    <p class="text-gray-600">No past bookings
+                        found.</p>
+                </div>
+                <div id="profileSettingsContent"
+                    class="dashboard-content card-custom p-6 md:p-8 hidden">
+                    <h3
+                        class="text-2xl font-semibold mb-6">Profile
+                        Settings</h3>
+                    <form class="space-y-6">
+                        <p class="text-gray-600">Profile editing
+                            form will be here. (e.g., Name,
+                            Email,
+                            Password change)</p>
+                        <button type="submit"
+                            class="btn-custom btn-primary-custom">Save
+                            Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
