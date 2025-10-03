@@ -91,9 +91,10 @@
         <!-- mycode -->
         <div th:replace="fragments/signup :: signupFragment"></div>
 
-        <div id="toastNotification" class="toast-custom hidden">
-            <span id="toastMessage" th:text="${error}"></span>
+        <div th:if="${error}" class="toast-custom show bg-red-500">
+            <span th:text="${error}"></span>
         </div>
+
         <script th:src="@{/script.js}"></script>
     </body>
 </html>

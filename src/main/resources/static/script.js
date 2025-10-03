@@ -144,20 +144,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // Toast Notifications
-    const toastNotification = document.getElementById('toastNotification');
-    const toastMessage = document.getElementById('toastMessage');
-    function showToast(message, type = 'success') {
-        if (!toastNotification || !toastMessage) return;
-        toastMessage.textContent = message;
-        toastNotification.classList.remove('bg-red-500', 'bg-yellow-500', 'bg-green-500', 'bg-sky-500');
-        if (type === 'success') toastNotification.classList.add('bg-green-500');
-        else if (type === 'error') toastNotification.classList.add('bg-red-500');
-        else if (type === 'warning') toastNotification.classList.add('bg-yellow-500');
-        else if (type === 'info') toastNotification.classList.add('bg-sky-500');
+    // const toastNotification = document.getElementById('toastNotification');
+    // const toastMessage = document.getElementById('toastMessage');
+    // function showToast(message, type = 'success') {
+    //     if (!toastNotification || !toastMessage) return;
+    //     toastMessage.textContent = message;
+    //     toastNotification.classList.remove('bg-red-500', 'bg-yellow-500', 'bg-green-500', 'bg-sky-500');
+    //     if (type === 'success') toastNotification.classList.add('bg-green-500');
+    //     else if (type === 'error') toastNotification.classList.add('bg-red-500');
+    //     else if (type === 'warning') toastNotification.classList.add('bg-yellow-500');
+    //     else if (type === 'info') toastNotification.classList.add('bg-sky-500');
 
-        toastNotification.classList.add('show');
-        setTimeout(() => toastNotification.classList.remove('show'), 3000);
-    }
+    //     toastNotification.classList.add('show');
+    //     setTimeout(() => toastNotification.classList.remove('show'), 3000);
+    // }
+
+    // <script th:if="${loginError != null}">
+    // showToast([[${loginError}]], 'error');
+    // </script>
 
     // Seat Selection Logic
     const seatMapContainer = document.getElementById('seatMapContainer');

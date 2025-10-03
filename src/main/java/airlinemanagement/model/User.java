@@ -26,5 +26,10 @@ public class User {
 
     @Column(nullable = false)
     private boolean isAdmin;
-}
 
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", name='" + name + "', email='" + email + "'}";
+    }
+
+}

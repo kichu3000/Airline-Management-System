@@ -184,36 +184,27 @@ body {
 .toast-custom {
     position: fixed;
     bottom: 1.25rem;
-    /* bottom-5 */
     right: 1.25rem;
-    /* right-5 */
-    background-color: #22c55e;
-    /* bg-green-500 default */
+    background-color: #22c55e; /* default green for success */
     color: #ffffff;
-    /* text-white */
-    padding-left: 1.5rem;
-    /* px-6 */
-    padding-right: 1.5rem;
-    /* px-6 */
-    padding-top: 0.75rem;
-    /* py-3 */
-    padding-bottom: 0.75rem;
-    /* py-3 */
+    padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
-    /* rounded-lg */
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-    /* shadow-xl */
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 500ms;
-    transform: translateY(100%);
-    opacity: 0;
+    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeOut 3s forwards; /*    automatically fades out */
 }
 
-.toast-custom.show {
-    transform: translateY(0);
-    opacity: 1;
+.toast-custom.bg-red-500 { background-color: #ef4444; }   /* error */
+.toast-custom.bg-yellow-500 { background-color: #facc15; } /* warning */
+.toast-custom.bg-sky-500 { background-color: #0ea5e9; }   /* info */
+
+@keyframes fadeOut {
+    0% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(50px); }
 }
+
 
 .modal-backdrop-custom {
     position: fixed;
