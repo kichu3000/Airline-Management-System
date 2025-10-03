@@ -3,31 +3,31 @@ document.addEventListener('DOMContentLoaded', () => {
     lucide.createIcons();
 
     // Page navigation logic
-    const allNavLinks = document.querySelectorAll('.nav-link-custom, .btn-custom[data-page], .footer-nav-link[data-page]');
-    const pageSections = document.querySelectorAll('.page-section');
-    const mainContent = document.getElementById('mainContent');
-    const skeletonLoaderResults = document.getElementById('skeletonLoaderResults');
-    const actualFlightResults = document.getElementById('actualFlightResults');
+    // const allNavLinks = document.querySelectorAll('.nav-link-custom, .btn-custom[data-page], .footer-nav-link[data-page]');
+    // const pageSections = document.querySelectorAll('.page-section');
+    // const mainContent = document.getElementById('mainContent');
+    // const skeletonLoaderResults = document.getElementById('skeletonLoaderResults');
+    // const actualFlightResults = document.getElementById('actualFlightResults');
 
-    function setActivePage(pageId, skipScroll = false) {
-        pageSections.forEach(section => section?.classList.add('hidden'));
-        const activePage = document.getElementById(pageId);
-        if (activePage) {
-            activePage.classList.remove('hidden');
-            if (!skipScroll && mainContent) {
-                mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+    // function setActivePage(pageId, skipScroll = false) {
+    //     pageSections.forEach(section => section?.classList.add('hidden'));
+    //     const activePage = document.getElementById(pageId);
+    //     if (activePage) {
+    //         activePage.classList.remove('hidden');
+    //         if (!skipScroll && mainContent) {
+    //             mainContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //         }
 
-            if (pageId === 'searchResults') {
-                if (skeletonLoaderResults) skeletonLoaderResults.style.display = 'block';
-                if (actualFlightResults) actualFlightResults.classList.add('hidden');
-                setTimeout(() => {
-                    if (skeletonLoaderResults) skeletonLoaderResults.style.display = 'none';
-                    if (actualFlightResults) actualFlightResults.classList.remove('hidden');
-                    lucide.createIcons();
-                }, 1500);
-            }
-        }
+    //         if (pageId === 'searchResults') {
+    //             if (skeletonLoaderResults) skeletonLoaderResults.style.display = 'block';
+    //             if (actualFlightResults) actualFlightResults.classList.add('hidden');
+    //             setTimeout(() => {
+    //                 if (skeletonLoaderResults) skeletonLoaderResults.style.display = 'none';
+    //                 if (actualFlightResults) actualFlightResults.classList.remove('hidden');
+    //                 lucide.createIcons();
+    //             }, 1500);
+    //         }
+    //     }
 
         // Update active link styling
         document.querySelectorAll('.nav-link-custom').forEach(link => {
@@ -41,22 +41,17 @@ document.addEventListener('DOMContentLoaded', () => {
             toggleMobileMenu();
         }
         lucide.createIcons();
-    }
 
-    allNavLinks.forEach(link => {
-        if (!link) return;
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const pageId = link.dataset.page;
-            if (pageId) setActivePage(pageId);
-        });
-    });
+    // allNavLinks.forEach(link => {
+    //     if (!link) return;
+    //     link.addEventListener('click', (e) => {
+    //         e.preventDefault();
+    //         const pageId = link.dataset.page;
+    //         if (pageId) setActivePage(pageId);
+    //     });
+    // });
 
-    setActivePage('home', true); // Initial page load
 
-    // Mobile Menu Toggle
-    const mobileMenuButton = document.getElementById('mobileMenuButton');
-    const mobileMenu = document.getElementById('mobile-menu');
 
     function toggleMobileMenu() {
         if (mobileMenu && mobileMenuButton) {
@@ -183,28 +178,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Dashboard Navigation
-    const dashboardNavItems = document.querySelectorAll('.dashboard-nav-item');
-    const dashboardContents = document.querySelectorAll('.dashboard-content');
-    dashboardNavItems.forEach(item => {
-        if (!item) return;
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetHref = item.getAttribute('href');
-            if (!targetHref?.startsWith('#')) return;
-            const targetId = targetHref.substring(1) + 'Content';
-            dashboardNavItems.forEach(nav => {
-                if (!nav) return;
-                nav.classList.remove('bg-sky-100', 'text-sky-700');
-                nav.classList.add('text-gray-600');
-            });
-            item.classList.add('bg-sky-100', 'text-sky-700');
-            item.classList.remove('text-gray-600');
-            dashboardContents.forEach(content => content?.classList.add('hidden'));
-            const targetContent = document.getElementById(targetId);
-            if (targetContent) targetContent.classList.remove('hidden');
-            lucide.createIcons();
-        });
-    });
+    // const dashboardNavItems = document.querySelectorAll('.dashboard-nav-item');
+    // const dashboardContents = document.querySelectorAll('.dashboard-content');
+    // dashboardNavItems.forEach(item => {
+    //     if (!item) return;
+    //     item.addEventListener('click', (e) => {
+    //         e.preventDefault();
+    //         const targetHref = item.getAttribute('href');
+    //         if (!targetHref?.startsWith('#')) return;
+    //         const targetId = targetHref.substring(1) + 'Content';
+    //         dashboardNavItems.forEach(nav => {
+    //             if (!nav) return;
+    //             nav.classList.remove('bg-sky-100', 'text-sky-700');
+    //             nav.classList.add('text-gray-600');
+    //         });
+    //         item.classList.add('bg-sky-100', 'text-sky-700');
+    //         item.classList.remove('text-gray-600');
+    //         dashboardContents.forEach(content => content?.classList.add('hidden'));
+    //         const targetContent = document.getElementById(targetId);
+    //         if (targetContent) targetContent.classList.remove('hidden');
+    //         lucide.createIcons();
+    //     });
+    // });
 
     // Admin Panel Navigation
     const adminNavItems = document.querySelectorAll('.admin-nav-item');

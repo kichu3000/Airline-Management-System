@@ -2,8 +2,6 @@ package airlinemanagement.controller;
 
 import airlinemanagement.model.*;
 
-import java.nio.channels.Pipe.SourceChannel;
-
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +23,25 @@ public class AuthController {
     @PostMapping("/signup")
     public String signup(@RequestParam String name,
             @RequestParam String email,
-            @RequestParam String password) {
+            @RequestParam String password,
+            Model model,
+            RedirectAttributes redirectAttributes) {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
         user.setPassword(password);
-        return userService.saveUser(user);
+        String result = userService.saveUser(user);
+
+        if (result.equals("User alredy exist😠")) {
+            model.addAttribute("error", result);
+            // model.addAttribute("name", name);
+            // model.addAttribute("email", email);
+            return "signup"; // render signup.html again
+        }
+
+        // redirect to login page👍
+        redirectAttributes.addFlashAttribute("success", result);
+        return "redirect:/login";
     }
 
     // This is login
@@ -46,7 +57,7 @@ public class AuthController {
             return "redirect:/dashboard";
         } else {
             redirectAttributes.addFlashAttribute("error", "Invalid credentials");
-            return "redirect:/";
+            return "redirect:/login";
         }
     }
 
@@ -67,7 +78,6 @@ public class AuthController {
     public String logout(HttpSession session) {
         System.out.println("Before invalidate: " + session.getAttribute("user"));
         session.invalidate();
-        System.out.println("After invalidate: " + session.getAttribute("user"));
         return "redirect:/";
     }
 

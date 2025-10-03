@@ -6,7 +6,7 @@
         <main id="mainContent" class="pb-16">
             <section id="home" class="page-section">
                 <div class="gradient-hero text-white py-20 md:py-32"
-                    style="background-image: url('/jet3.jpg'); background-size: cover; background-position: center;">
+                    style="background-image: url('/images/jet3.jpg'); background-size: cover; background-position: center;">
                     <div
                         class="max-w-xl px-4 sm:px-6 lg:px-8 text-gray-900">
                         <h1
@@ -87,9 +87,7 @@
 
         <div th:replace="fragments/footer :: footerFragment"></div>
         <!-- here -->
-        <div th:replace="fragments/login :: loginFragment"></div>
         <!-- mycode -->
-        <div th:replace="fragments/signup :: signupFragment"></div>
 
         <div th:if="${error}" class="toast-custom show bg-red-500">
             <span th:text="${error}"></span>

@@ -12,10 +12,10 @@ public class UserService {
 
     public String saveUser(User user) {
         if (userRepo.existsByEmail(user.getEmail())) {
-            return "User alredy exist";
+            return "User alredy exist😠";
         }
         userRepo.save(user);
-        return "Stored sucessfully";
+        return "Account created successfully!😚";
     }
 
     public User validateUser(String email, String password) {
