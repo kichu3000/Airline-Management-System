@@ -1,17 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head th:fragment="headFragment">
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>QuinJet | Airline Reservation System</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-            rel="stylesheet">
-        <script
-            src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-        <link rel="stylesheet" th:href="@{/styles.css}">
-    </head>
+    <head th:replace="fragments/head :: headFragment"></head>
 
     <body class="text-gray-800">
         <div th:replace="fragments/nav :: navbar"></div>
@@ -34,34 +23,32 @@
                                     class="text-sm text-gray-500">john.doe@example.com</p>
                             </div>
                             <nav class="space-y-2">
-                                <a href="#upcomingBookings"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-sky-700 bg-sky-100">
+                                <a th:href="@{/dashboard/upcoming}"
+                                    th:classappend="${activeTab == 'upcoming'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
                                     <i data-lucide="calendar-check"
                                         class="mr-3 lucide-sm"></i>
-                                    Upcoming
-                                    Bookings
+                                    Upcoming Bookings
                                 </a>
-                                <a href="#bookingHistory"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+
+                                <a th:href="@{/dashboard/history}"
+                                    th:classappend="${activeTab == 'history'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
                                     <i data-lucide="history"
                                         class="mr-3 lucide-sm"></i>
-                                    Booking
-                                    History
+                                    Booking History
                                 </a>
-                                <a href="#profileSettings"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+
+                                <a th:href="@{/dashboard/profile}"
+                                    th:classappend="${activeTab == 'profile'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
                                     <i data-lucide="user-cog"
                                         class="mr-3 lucide-sm"></i>
-                                    Profile
-                                    Settings
+                                    Profile Settings
                                 </a>
-                                <a href="#" id="dashboardLogoutButton"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-red-100 text-red-600">
-                                    <i data-lucide="log-out"
-                                        class="mr-3 lucide-sm"></i>
-                                    Logout
-                                </a>
+
                             </nav>
+
                         </div>
                     </div>
                     <div class="lg:col-span-3">
