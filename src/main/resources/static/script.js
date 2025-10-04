@@ -238,4 +238,82 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Searching for flights...', 'info');
         });
     }
+    // Smooth scrolling for nav links to internal anchors and active link toggling
+    document.querySelectorAll('.nav-link-custom[data-target]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const target = link.getAttribute('data-target');
+            if (!target) return; // let default behavior for external links
+            e.preventDefault();
+            const el = document.querySelector(target);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            document.querySelectorAll('.nav-link-custom').forEach(l => l.classList.remove('nav-link-active-custom'));
+            link.classList.add('nav-link-active-custom');
+        });
+    });
+    // Simple toast utility used across the site
+    function showToast(message, type = 'success', duration = 3500) {
+        let existing = document.querySelector('.toast-custom');
+        if (!existing) {
+            existing = document.createElement('div');
+            existing.className = 'toast-custom';
+            existing.id = 'toastNotification';
+            document.body.appendChild(existing);
+        }
+        existing.textContent = message;
+        existing.classList.remove('bg-red-500', 'bg-yellow-500', 'bg-sky-500', 'bg-green-500');
+        if (type === 'error') existing.classList.add('bg-red-500');
+        else if (type === 'warning') existing.classList.add('bg-yellow-500');
+        else if (type === 'info') existing.classList.add('bg-sky-500');
+        else existing.classList.add('bg-green-500');
+        existing.classList.add('show');
+        clearTimeout(existing._hideTimeout);
+        existing._hideTimeout = setTimeout(() => existing.classList.remove('show'), duration);
+    }
+
+    // Contact form handling (client-side only) - validates and simulates send
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!name || !email || !message) {
+                showToast('Please fill all the fields before sending.', 'error');
+                return;
+            }
+
+            // Simple email check
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showToast('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            // Disable button while "sending"
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const origText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader" class="lucide-sm"></i> Sending...';
+            lucide.createIcons();
+
+            // Simulate network latency then show success toast and clear form
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.innerHTML = origText;
+                lucide.createIcons();
+                contactForm.reset();
+                showToast('Thanks! Your message has been sent.', 'success');
+            }, 1200);
+        });
+
+        // enable pressing Enter in inputs to submit when appropriate
+        ['contactName', 'contactEmail'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.addEventListener('keydown', (e) => { if (e.key === 'Enter') contactForm.requestSubmit(); });
+        });
+    }
 });

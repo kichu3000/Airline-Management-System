@@ -1,23 +1,8 @@
 body {
-    margin: 0; /* reset default browser margin to remove gap above hero image */
     font-family: 'Inter', sans-serif;
     background-color: #f0f2f5;
     /* Light gray background */
 }
-
-/* Ensure footer is at the bottom for short pages */
-html, body { height: 100%; }
-body { min-height: 100vh; display: flex; flex-direction: column; }
-main { flex: 1 0 auto; }
-.site-footer { flex-shrink: 0; }
-
-/* Ensure hero backgrounds align to the top so there is no visible gap */
-.gradient-hero { background-position: top center; background-repeat: no-repeat; background-size: cover; }
-
-/* Fix navbar to top and make room for it so hero aligns correctly */
-.site-navbar { position: sticky; top: 0; left: 0; right: 0; z-index: 60; }
-/* No manual top padding required when navbar is sticky and in-flow */
-main { padding-top: 0; }
 
 .nav-link-custom {
     padding-left: 0.75rem;
@@ -199,27 +184,36 @@ main { padding-top: 0; }
 .toast-custom {
     position: fixed;
     bottom: 1.25rem;
+    /* bottom-5 */
     right: 1.25rem;
-    background-color: #22c55e; /* default green for success */
+    /* right-5 */
+    background-color: #22c55e;
+    /* bg-green-500 default */
     color: #ffffff;
-    padding: 0.75rem 1.5rem;
+    /* text-white */
+    padding-left: 1.5rem;
+    /* px-6 */
+    padding-right: 1.5rem;
+    /* px-6 */
+    padding-top: 0.75rem;
+    /* py-3 */
+    padding-bottom: 0.75rem;
+    /* py-3 */
     border-radius: 0.5rem;
-    box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
-    opacity: 1;
+    /* rounded-lg */
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    /* shadow-xl */
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+    transform: translateY(100%);
+    opacity: 0;
+}
+
+.toast-custom.show {
     transform: translateY(0);
-    animation: fadeOut 3s forwards; /*    automatically fades out */
+    opacity: 1;
 }
-
-.toast-custom.bg-red-500 { background-color: #ef4444; }   /* error */
-.toast-custom.bg-yellow-500 { background-color: #facc15; } /* warning */
-.toast-custom.bg-sky-500 { background-color: #0ea5e9; }   /* info */
-
-@keyframes fadeOut {
-    0% { opacity: 1; transform: translateY(0); }
-    80% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(50px); }
-}
-
 
 .modal-backdrop-custom {
     position: fixed;
@@ -341,29 +335,4 @@ main { padding-top: 0; }
 .lucide-lg {
     width: 32px;
     height: 32px;
-}
-
-/* About & Contact specific styles */
-.page-section { padding-top: 4rem; padding-bottom: 4rem; }
-.contact-section { background: linear-gradient(180deg, #f8fafc 0%, #eaf6ff 100%); }
-.contact-input, .contact-textarea {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    border: 1px solid #e6eef8;
-    background: #ffffff;
-    box-shadow: 0 1px 2px rgba(16,24,40,0.03);
-    transition: box-shadow 150ms ease, transform 150ms ease;
-}
-.contact-input:focus, .contact-textarea:focus {
-    outline: none;
-    box-shadow: 0 6px 18px rgba(14,165,233,0.12);
-    transform: translateY(-1px);
-    border-color: rgba(14,165,233,0.3);
-}
-.contact-btn { min-width: 160px; }
-
-/* small responsive tweaks */
-@media (max-width: 768px) {
-    .page-section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 }

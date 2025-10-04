@@ -15,6 +15,16 @@ public class PageController {
         return "flight";
     }
 
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
+
     @GetMapping("/login")
     public String login() {
         return "login";
