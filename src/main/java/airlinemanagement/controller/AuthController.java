@@ -1,7 +1,7 @@
 package airlinemanagement.controller;
 
 import airlinemanagement.model.*;
-
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,10 +26,14 @@ public class AuthController {
             @RequestParam String password,
             Model model,
             RedirectAttributes redirectAttributes) {
+
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
+        System.out.println("User signuped --" + user);
         String result = userService.saveUser(user);
 
         if (result.equals("User alredy exist😠")) {
@@ -61,7 +65,7 @@ public class AuthController {
         }
     }
 
-    // Code for dashboard
+    // Code for dashboard😄
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");// get user from session

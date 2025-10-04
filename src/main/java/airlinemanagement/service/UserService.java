@@ -2,6 +2,8 @@ package airlinemanagement.service;
 
 import airlinemanagement.model.*;
 import airlinemanagement.repository.UserRepository;
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.Service;;
 
@@ -19,8 +21,8 @@ public class UserService {
     }
 
     public User validateUser(String email, String password) {
-        User user = userRepo.findByEmail(email);// the findByEmail method will be auto-generated
-        if (user != null && user.getPassword().equals(password)) {
+        User user = userRepo.findByEmail(email); // auto-generated findByEmail
+        if (user != null && BCrypt.checkpw(password, user.getPassword())) { // ✅ use checkpw
             return user;
         }
         return null;
