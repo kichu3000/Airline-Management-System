@@ -17,10 +17,11 @@
                                     src="https://placehold.co/120x120/E2E8F0/94A3B8?text=User"
                                     alt="User Avatar"
                                     class="w-24 h-24 rounded-full mb-4">
-                                <h3 class="text-xl font-semibold">John
-                                    Doe</h3>
+                                <h3 class="text-xl font-semibold"
+                                    th:text="${user.name}">John Doe</h3>
                                 <p
-                                    class="text-sm text-gray-500">john.doe@example.com</p>
+                                    class="text-sm text-gray-500"
+                                    th:text="${user.email}">john.doe@example.com</p>
                             </div>
                             <nav class="space-y-2">
                                 <a th:href="@{/dashboard/upcoming}"
@@ -52,10 +53,11 @@
                         </div>
                     </div>
                     <div class="lg:col-span-3">
-                        <div id="upcomingBookingsContent"
+
+                        <!-- Upcoming Bookings -->
+                        <div th:if="${activeTab == 'upcoming'}"
                             class="dashboard-content card-custom p-6 md:p-8">
-                            <h3
-                                class="text-2xl font-semibold mb-6">Upcoming
+                            <h3 class="text-2xl font-semibold mb-6">Upcoming
                                 Bookings</h3>
                             <div class="space-y-6">
                                 <div
@@ -64,58 +66,63 @@
                                         class="flex justify-between items-start">
                                         <div>
                                             <p
-                                                class="text-lg font-semibold text-sky-700">New
-                                                York (JFK) <i
+                                                class="text-lg font-semibold text-sky-700">
+                                                New York (JFK) <i
                                                     data-lucide="arrow-right"
                                                     class="inline-block lucide-sm"></i>
-                                                London (LHR)</p>
+                                                London (LHR)
+                                            </p>
                                             <p
                                                 class="text-sm text-gray-500">Flight
-                                                AL 205 | Oct 28, 2024 -
-                                                08:00 AM</p>
+                                                AL 205 | Oct 28, 2024 - 08:00
+                                                AM</p>
                                         </div>
                                         <span
                                             class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Confirmed</span>
                                     </div>
                                     <div class="mt-4 flex space-x-4">
                                         <button
-                                            class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i
-                                                data-lucide="eye"
+                                            class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm">
+                                            <i data-lucide="eye"
                                                 class="inline-block mr-1 lucide-sm"></i>
-                                            View Details</button>
+                                            View Details
+                                        </button>
                                         <button
-                                            class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm"><i
-                                                data-lucide="edit-3"
+                                            class="btn-custom btn-secondary-custom !px-3 !py-1 !text-sm">
+                                            <i data-lucide="edit-3"
                                                 class="inline-block mr-1 lucide-sm"></i>
-                                            Modify</button>
+                                            Modify
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="bookingHistoryContent"
-                            class="dashboard-content card-custom p-6 md:p-8 ">
-                            <h3
-                                class="text-2xl font-semibold mb-6">Booking
+
+                        <!-- Booking History -->
+                        <div th:if="${activeTab == 'history'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Booking
                                 History</h3>
-                            <p class="text-gray-600">No past bookings
-                                found.</p>
+                            <p class="text-gray-600">No past bookings found.</p>
                         </div>
-                        <div id="profileSettingsContent"
-                            class="dashboard-content card-custom p-6 md:p-8 ">
-                            <h3
-                                class="text-2xl font-semibold mb-6">Profile
+
+                        <!-- Profile Settings -->
+                        <div th:if="${activeTab == 'profile'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Profile
                                 Settings</h3>
                             <form class="space-y-6">
-                                <p class="text-gray-600">Profile editing
-                                    form will be here. (e.g., Name,
-                                    Email,
-                                    Password change)</p>
+                                <p class="text-gray-600">Profile editing form
+                                    will be here. (e.g., Name, Email, Password
+                                    change)</p>
                                 <button type="submit"
                                     class="btn-custom btn-primary-custom">Save
                                     Changes</button>
                             </form>
                         </div>
+
                     </div>
+
                 </div>
             </div>
         </section>
