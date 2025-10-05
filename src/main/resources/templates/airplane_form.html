@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="fragments/head :: headFragment"></head>
+  <body>
+    <div th:replace="fragments/nav :: navbar"></div>
+    <main class="pb-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h1 class="text-2xl font-bold mb-4">Airplane</h1>
+        <form th:action="@{/airplanes}" th:object="${airplane}" method="post" class="card-custom p-6">
+          <input type="hidden" th:field="*{id}" />
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="form-label-custom">Model</label>
+              <input th:field="*{model}" class="input-field-custom" />
+            </div>
+            <div>
+              <label class="form-label-custom">Registration</label>
+              <input th:field="*{registration}" class="input-field-custom" />
+            </div>
+            <div>
+              <label class="form-label-custom">Manufacturer</label>
+              <input th:field="*{manufacturer}" class="input-field-custom" />
+            </div>
+            <div>
+              <label class="form-label-custom">Capacity</label>
+              <input th:field="*{capacity}" type="number" class="input-field-custom" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="form-label-custom">Image Path</label>
+              <input th:field="*{imagePath}" class="input-field-custom" placeholder="/images/plane1.jpg" />
+            </div>
+          </div>
+          <div class="mt-4 text-right">
+            <button type="submit" class="btn-custom btn-primary-custom">Save</button>
+          </div>
+        </form>
+      </div>
+    </main>
+    <div th:replace="fragments/footer :: footerFragment"></div>
+    <script th:src="@{/script.js}"></script>
+  </body>
+</html>

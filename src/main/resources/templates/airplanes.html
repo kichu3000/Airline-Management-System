@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="fragments/head :: headFragment"></head>
+  <body>
+    <div th:replace="fragments/nav :: navbar"></div>
+    <main class="pb-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex justify-between items-center mb-6">
+          <h1 class="text-2xl font-bold">Airplanes</h1>
+          <a th:href="@{/airplanes/new}" class="btn-custom btn-primary-custom">Add Airplane</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div th:each="ap : ${airplanes}" class="p-4 bg-white rounded-lg shadow-sm">
+            <div class="flex items-start space-x-4">
+              <img th:if="${ap.imagePath}" th:src="@{${ap.imagePath}}" alt="plane" class="w-28 h-20 object-cover rounded" />
+              <div>
+                <h3 class="font-semibold" th:text="${ap.model}">Model</h3>
+                <p class="text-sm text-gray-600">Registration: <span th:text="${ap.registration}"></span></p>
+                <p class="text-sm text-gray-600">Manufacturer: <span th:text="${ap.manufacturer}"></span></p>
+                <p class="text-sm text-gray-600">Capacity: <span th:text="${ap.capacity}"></span></p>
+                <div class="mt-3">
+                  <a th:href="@{'/airplanes/edit/' + ${ap.id}}" class="btn-secondary-custom mr-2">Edit</a>
+                  <a th:href="@{'/airplanes/delete/' + ${ap.id}}" class="btn-secondary-custom">Delete</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <div th:replace="fragments/footer :: footerFragment"></div>
+    <script th:src="@{/script.js}"></script>
+  </body>
+</html>

@@ -10,11 +10,6 @@ public class PageController {
         return "index";
     }
 
-    @GetMapping("/flight")
-    public String flight() {
-        return "flight";
-    }
-
     @GetMapping("/about")
     public String about() {
         return "about";

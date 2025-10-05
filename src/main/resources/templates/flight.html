@@ -3,159 +3,123 @@
 
     <body class="flex flex-col min-h-screen">
         <div th:replace="fragments/nav :: navbar"></div>
-        <div>
-            <main class="flex-1">
-                <div id="skeletonLoaderResults"
-                    class="flex flex-col items-center space-y-6 pt-12">
-                    <!-- Skeleton Card 1 -->
-                    <div
-                        class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 w-full max-w-4xl bg-white rounded-lg shadow-md">
-                        <div class="flex items-center space-x-4">
-                            <div
-                                class="skeleton-custom w-12 h-12 rounded-full bg-gray-300"></div>
-                            <div class="flex flex-col space-y-1">
-                                <div
-                                    class="skeleton-custom h-4 w-32 bg-gray-300 rounded"></div>
-                                <div
-                                    class="skeleton-custom h-3 w-24 bg-gray-300 rounded"></div>
-                            </div>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <div
-                                class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
-                            <div
-                                class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
-                        </div>
-                        <div class="text-center md:text-left">
-                            <div
-                                class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
-                            <div
-                                class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
-                        </div>
-                        <div class="text-center md:text-right">
-                            <div
-                                class="skeleton-custom h-6 w-24 mb-2 bg-gray-300 rounded"></div>
-                            <div
-                                class="skeleton-custom h-8 w-32 rounded-lg bg-gray-300"></div>
-                        </div>
-                    </div>
-
-                    <!-- Skeleton Card 2 -->
-                    <!-- <div
-                    class="card-custom p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 w-full max-w-4xl bg-white rounded-lg shadow-md">
-                    <div class="flex items-center space-x-4">
-                        <div
-                            class="skeleton-custom w-12 h-12 rounded-full bg-gray-300"></div>
-                        <div class="flex flex-col space-y-1">
-                            <div
-                                class="skeleton-custom h-4 w-32 bg-gray-300 rounded"></div>
-                            <div
-                                class="skeleton-custom h-3 w-24 bg-gray-300 rounded"></div>
-                        </div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <div
-                            class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
-                        <div
-                            class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
-                    </div>
-                    <div class="text-center md:text-left">
-                        <div
-                            class="skeleton-custom h-4 w-20 mb-1 bg-gray-300 rounded"></div>
-                        <div
-                            class="skeleton-custom h-3 w-16 bg-gray-300 rounded"></div>
-                    </div>
-                    <div class="text-center md:text-right">
-                        <div
-                            class="skeleton-custom h-6 w-24 mb-2 bg-gray-300 rounded"></div>
-                        <div
-                            class="skeleton-custom h-8 w-32 rounded-lg bg-gray-300"></div>
-                    </div>
-                </div> -->
+        
+        <!-- Flight Search Section -->
+        <div class="bg-gradient-to-r from-sky-600 to-blue-700 py-12">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center text-white mb-8">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4">Find Your Perfect Flight</h1>
+                    <p class="text-lg">Search and book flights to your dream destinations</p>
                 </div>
-
-                <div id="actualFlightResults" class="space-y-6 hidden">
-                    <div class="card-custom hover:shadow-xl transition-shadow">
-                        <div
-                            class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                            <div class="flex items-center space-x-4">
-                                <img
-                                    src="https://placehold.co/48x48/0EA5E9/FFFFFF?text=AL"
-                                    alt="Airline Logo"
-                                    class="rounded-full" />
-                                <div>
-                                    <h4 class="font-semibold text-lg">QuinJet
-                                        Airways</h4>
-                                    <p class="text-sm text-gray-500">AL 205</p>
+                
+                <!-- Search Form -->
+                <div class="card-custom p-6 md:p-8">
+                    <form th:action="@{/flight/search}" method="post" 
+                          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                        <div>
+                            <label for="from" class="form-label-custom">From</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="map-pin" class="text-gray-400 lucide-sm"></i>
                                 </div>
-                            </div>
-                            <div class="text-center md:text-left">
-                                <p class="font-medium">08:00 AM</p>
-                                <p class="text-sm text-gray-500">New York
-                                    (JFK)</p>
-                            </div>
-                            <div class="text-center md:text-left">
-                                <p class="font-medium">10:30 AM</p>
-                                <p class="text-sm text-gray-500">London
-                                    (LHR)</p>
-                            </div>
-                            <div class="text-center md:text-right">
-                                <p
-                                    class="text-2xl font-bold text-sky-600">$350</p>
-                                <button
-                                    class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2"
-                                    data-page="booking">
-                                    Select Flight
-                                </button>
+                                <input type="text" id="from" name="from" 
+                                       th:value="${searchFrom}" 
+                                       placeholder="City or Airport" 
+                                       class="input-field-custom pl-10">
                             </div>
                         </div>
-                        <div
-                            class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
-                            2h 30m duration | Non-stop
-                        </div>
-                    </div>
-                    <div class="card-custom hover:shadow-xl transition-shadow">
-                        <div
-                            class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                            <div class="flex items-center space-x-4">
-                                <img
-                                    src="https://placehold.co/48x48/EC4899/FFFFFF?text=SH"
-                                    alt="Airline Logo"
-                                    class="rounded-full" />
-                                <div>
-                                    <h4 class="font-semibold text-lg">SkyHigh
-                                        Airlines</h4>
-                                    <p class="text-sm text-gray-500">SH 712</p>
+                        <div>
+                            <label for="to" class="form-label-custom">To</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="map-pin" class="text-gray-400 lucide-sm"></i>
                                 </div>
-                            </div>
-                            <div class="text-center md:text-left">
-                                <p class="font-medium">09:15 AM</p>
-                                <p class="text-sm text-gray-500">New York
-                                    (JFK)</p>
-                            </div>
-                            <div class="text-center md:text-left">
-                                <p class="font-medium">12:00 PM</p>
-                                <p class="text-sm text-gray-500">London
-                                    (LHR)</p>
-                            </div>
-                            <div class="text-center md:text-right">
-                                <p
-                                    class="text-2xl font-bold text-sky-600">$320</p>
-                                <button
-                                    class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2"
-                                    data-page="booking">
-                                    Select Flight
-                                </button>
+                                <input type="text" id="to" name="to" 
+                                       th:value="${searchTo}" 
+                                       placeholder="City or Airport" 
+                                       class="input-field-custom pl-10">
                             </div>
                         </div>
-                        <div
-                            class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
-                            2h 45m duration | Non-stop
+                        <div>
+                            <label for="date" class="form-label-custom">Departure Date</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i data-lucide="calendar-days" class="text-gray-400 lucide-sm"></i>
+                                </div>
+                                <input type="date" id="date" name="date" 
+                                       th:value="${searchDate}" 
+                                       class="input-field-custom pl-10">
+                            </div>
                         </div>
-                    </div>
+                        <div>
+                            <button type="submit" 
+                                    class="btn-custom btn-primary-custom w-full h-full py-3">
+                                <i data-lucide="search" class="inline-block mr-2 lucide-sm"></i>
+                                Search Flights
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </main>
+            </div>
         </div>
-        <!-- <div th:replace="fragments/footer :: footerFragment"></div> -->
+
+        <!-- Flight Results Section -->
+        <main class="flex-1 py-12">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div th:if="${flights != null and !flights.isEmpty()}" class="space-y-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">
+                        <span th:text="${#lists.size(flights)}">0</span> Flights Found
+                    </h2>
+                    
+                    <div th:each="flight : ${flights}" 
+                         class="card-custom hover:shadow-xl transition-shadow">
+                        <div class="p-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                            <div class="flex items-center space-x-4">
+                                <img th:src="${flight.airlineLogo != null ? flight.airlineLogo : 'https://placehold.co/48x48/0EA5E9/FFFFFF?text=' + flight.airline.substring(0,2)}" 
+                                     th:alt="${flight.airline + ' Logo'}" 
+                                     class="rounded-full w-12 h-12" />
+                                <div>
+                                    <h4 class="font-semibold text-lg" th:text="${flight.airline}">Airline</h4>
+                                    <p class="text-sm text-gray-500" th:text="${flight.flightNumber}">Flight Number</p>
+                                </div>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <p class="font-medium" th:text="${#temporals.format(flight.departureTime, 'h:mm a')}">08:00 AM</p>
+                                <p class="text-sm text-gray-500" th:text="${flight.departureCity + ' (' + flight.departureAirport + ')'}">New York (JFK)</p>
+                            </div>
+                            <div class="text-center md:text-left">
+                                <p class="font-medium" th:text="${#temporals.format(flight.arrivalTime, 'h:mm a')}">10:30 AM</p>
+                                <p class="text-sm text-gray-500" th:text="${flight.arrivalCity + ' (' + flight.arrivalAirport + ')'}">London (LHR)</p>
+                            </div>
+                            <div class="text-center md:text-right">
+                                <p class="text-2xl font-bold text-sky-600" th:text="'$' + ${flight.price}">$350</p>
+                                <a th:href="@{/flight/{id}(id=${flight.id})}" 
+                                   class="btn-custom btn-primary-custom !text-sm mt-2 !px-4 !py-2 inline-block">
+                                    Select Flight
+                                </a>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 px-6 py-3 border-t text-sm text-gray-600">
+                            <span th:text="${flight.duration} + ' minutes'">150 minutes</span> duration | 
+                            <span th:text="${flight.status}">Non-stop</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div th:if="${flights == null or flights.isEmpty()}" class="text-center py-12">
+                    <div class="max-w-md mx-auto">
+                        <i data-lucide="plane" class="w-16 h-16 text-gray-400 mx-auto mb-4"></i>
+                        <h3 class="text-xl font-semibold text-gray-600 mb-2">No flights found</h3>
+                        <p class="text-gray-500 mb-6">Try adjusting your search criteria or browse all available flights.</p>
+                        <a th:href="@{/flight}" class="btn-custom btn-primary-custom">
+                            View All Flights
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div th:replace="fragments/footer :: footerFragment"></div>
+        <script th:src="@{/script.js}"></script>
     </body>
 </html>
