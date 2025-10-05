@@ -238,4 +238,21 @@ document.addEventListener('DOMContentLoaded', () => {
             showToast('Searching for flights...', 'info');
         });
     }
+
+    
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const seatCheckboxes = document.querySelectorAll('input[name="seat"]');
+    const selectedSeatDisplay = document.getElementById("selectedSeatDisplay");
+
+    seatCheckboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", () => {
+            const selected = Array.from(seatCheckboxes)
+                                .filter(cb => cb.checked)
+                                .map(cb => cb.value);
+            selectedSeatDisplay.textContent = selected.join(", ") || "None";
+        });
+    });
+});
+

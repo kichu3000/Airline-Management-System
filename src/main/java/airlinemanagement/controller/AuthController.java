@@ -63,7 +63,8 @@ public class AuthController {
             redirectAttributes.addFlashAttribute("error", "Invalid credentials");
             return "redirect:/login";
         }
-    }
+    } // --> --> --> --> -->🤨
+      // --> --> --> --> -->😀
 
     // Code for dashboard😄
     @GetMapping("/dashboard")

@@ -23,20 +23,44 @@ public class DashboardController {
     }
 
     @GetMapping("/upcoming")
-    public String upcoming(Model model) {
+    public String upcoming(Model model, HttpSession session) {
+        // ensure only authenticated users can access dashboard pages
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/"; // not logged in
+        }
         model.addAttribute("activeTab", "upcoming");
-        return "dashboard"; // Thymeleaf template
+        return "dashboard";
     }
 
     @GetMapping("/history")
-    public String history(Model model) {
+    public String history(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
         model.addAttribute("activeTab", "history");
         return "dashboard";
     }
 
     @GetMapping("/profile")
-    public String profile(Model model) {
+    public String profile(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
         model.addAttribute("activeTab", "profile");
         return "dashboard";
     }
+
+    @GetMapping("/booking")
+    public String bookingPage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
+        model.addAttribute("activeTab", "booking");
+        return "dashboard";
+    }
+
 }
