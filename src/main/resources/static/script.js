@@ -225,19 +225,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Set current year in footer
+    // Set current year in footer 
     const currentYearEl = document.getElementById('currentYear');
     if (currentYearEl) currentYearEl.textContent = new Date().getFullYear();
 
-    // Flight Search Form Submission
-    const flightSearchForm = document.getElementById('flightSearchForm');
-    if (flightSearchForm) {
-        flightSearchForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            setActivePage('searchResults');
-            showToast('Searching for flights...', 'info');
-        });
-    }
 
     
 });
