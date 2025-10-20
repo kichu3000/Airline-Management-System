@@ -24,6 +24,13 @@
                                     th:text="${user.email}">john.doe@example.com</p>
                             </div>
                             <nav class="space-y-2">
+                                <a th:href="@{/dashboard/booking}"
+                                    th:classappend="${activeTab == 'booking'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
+                                    <i data-lucide="plane"
+                                        class="mr-3 lucide-sm"></i>
+                                    Book a Flight
+                                </a>
                                 <a th:href="@{/dashboard/upcoming}"
                                     th:classappend="${activeTab == 'upcoming'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
                                     class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
@@ -38,13 +45,6 @@
                                     <i data-lucide="history"
                                         class="mr-3 lucide-sm"></i>
                                     Booking History
-                                </a>
-                                <a th:href="@{/dashboard/booking}"
-                                    th:classappend="${activeTab == 'booking'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
-                                    <i data-lucide="airplane"
-                                        class="mr-3 lucide-sm"></i>
-                                    Book a Flight
                                 </a>
 
                                 <a th:href="@{/dashboard/profile}"
@@ -294,7 +294,7 @@
                                                         </label>
                                                         <label
                                                             class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
+                hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
                                                             B
                                                             <input
                                                                 type="checkbox"
@@ -304,7 +304,7 @@
                                                         </label>
                                                         <label
                                                             class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
+                hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
                                                             C
                                                             <input
                                                                 type="checkbox"
