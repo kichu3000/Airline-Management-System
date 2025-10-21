@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="@{/styles.css}">
+</head>
+<body>
+    <section id="admin" class="page-section hidden p-6 md:p-10">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-800 mb-8">Admin Panel</h2>
+            <div class="grid lg:grid-cols-4 gap-8">
+                <div class="lg:col-span-1">
+                    <div class="card-custom p-6">
+                        <nav class="space-y-2">
+                            <a href="#manageFlights" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-sky-700 bg-sky-100">
+                                <i data-lucide="plane-takeoff" class="mr-3 lucide-sm"></i> Manage Flights
+                            </a>
+                            <a href="#manageBookings" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+                                <i data-lucide="book-marked" class="mr-3 lucide-sm"></i> Manage Bookings
+                            </a>
+                            <a href="#managePassengers" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+                                <i data-lucide="users-2" class="mr-3 lucide-sm"></i> Manage Passengers
+                            </a>
+                            <a href="#analytics" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
+                                <i data-lucide="bar-chart-3" class="mr-3 lucide-sm"></i> Analytics
+                            </a>
+                        </nav>
+                    </div>
+                </div>
+                <div class="lg:col-span-3">
+                    <div id="manageFlightsContent" class="admin-content card-custom p-6 md:p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Manage Flights</h3>
+                        <button class="btn-custom btn-primary-custom mb-6"><i data-lucide="plus-circle" class="inline-block mr-1 lucide-sm"></i> Add New Flight</button>
+                        <p class="text-gray-600">Table of flights will be displayed here. (e.g., with columns for Flight No., Origin, Destination, Date, Status, Actions)</p>
+                    </div>
+                    <div id="manageBookingsContent" class="admin-content card-custom p-6 md:p-8 hidden">
+                        <h3 class="text-2xl font-semibold mb-6">Manage Bookings</h3>
+                        <p class="text-gray-600">Table of bookings will be displayed here. (e.g., Booking ID, Passenger, Flight, Date, Status, Actions)</p>
+                    </div>
+                    <div id="managePassengersContent" class="admin-content card-custom p-6 md:p-8 hidden">
+                        <h3 class="text-2xl font-semibold mb-6">Manage Passengers</h3>
+                        <p class="text-gray-600">Table of passengers will be displayed here. (e.g., Passenger ID, Name, Email, Total Bookings, Actions)</p>
+                    </div>
+                    <div id="analyticsContent" class="admin-content card-custom p-6 md:p-8 hidden">
+                        <h3 class="text-2xl font-semibold mb-6">Analytics</h3>
+                        <p class="text-gray-600">Charts and analytics data will be displayed here.</p>
+                        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center text-gray-500">
+                            Placeholder for Chart (e.g., Bookings per month)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="@{/script.js}"></script>
+</body>
+</html>

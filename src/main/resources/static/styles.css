@@ -60,6 +60,15 @@ body {
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
 }
+.btn-primary-custom-green {
+    background-color: #22c55e; /* Tailwind green-500 */
+    color: #ffffff; /* text white */
+}
+.btn-primary-custom-green:hover {
+    background-color: #1baf51; /* Tailwind green-500 */
+    color: #ffffff; /* text white */
+}
+
 
 .btn-primary-custom {
     background-color: #0ea5e9;

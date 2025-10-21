@@ -1,7 +1,7 @@
 package airlinemanagement.controller;
 
+import airlinemanagement.Util.ConsoleColor;
 import airlinemanagement.model.*;
-import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,12 +27,12 @@ public class AuthController {
             Model model,
             RedirectAttributes redirectAttributes) {
 
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
+        // String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt(12));
 
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        user.setPassword(hashedPassword);
+        user.setPassword(password);
         System.out.println("User signuped --" + user);
         String result = userService.saveUser(user);
 
@@ -55,16 +55,24 @@ public class AuthController {
             HttpSession session,
             RedirectAttributes redirectAttributes) {
         User user = userService.validateUser(email, password);
+        System.out.println(ConsoleColor.GREEN + "The login here " + user + ConsoleColor.RESET);// check the user
         if (user != null) {
             session.setAttribute("user", user);
             redirectAttributes.addFlashAttribute("success", "Login successful!");
-            return "redirect:/dashboard";
+
+            if (user.isAdmin()) {
+                return "redirect:/admin"; // admin
+            } else {
+                return "redirect:/dashboard"; // user
+            }
+
         } else {
             redirectAttributes.addFlashAttribute("error", "Invalid credentials");
             return "redirect:/login";
         }
-    } // --> --> --> --> -->🤨
-      // --> --> --> --> -->😀
+    }
+    // --> --> --> --> -->🤨
+    // --> --> --> --> -->😀
 
     // Code for dashboard😄
     @GetMapping("/dashboard")

@@ -1,59 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="@{/styles.css}">
-</head>
-<body>
-    <section id="admin" class="page-section hidden p-6 md:p-10">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Admin Panel</h2>
-            <div class="grid lg:grid-cols-4 gap-8">
-                <div class="lg:col-span-1">
-                    <div class="card-custom p-6">
-                        <nav class="space-y-2">
-                            <a href="#manageFlights" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-sky-700 bg-sky-100">
-                                <i data-lucide="plane-takeoff" class="mr-3 lucide-sm"></i> Manage Flights
-                            </a>
-                            <a href="#manageBookings" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
-                                <i data-lucide="book-marked" class="mr-3 lucide-sm"></i> Manage Bookings
-                            </a>
-                            <a href="#managePassengers" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
-                                <i data-lucide="users-2" class="mr-3 lucide-sm"></i> Manage Passengers
-                            </a>
-                            <a href="#analytics" class="admin-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100 text-gray-600">
-                                <i data-lucide="bar-chart-3" class="mr-3 lucide-sm"></i> Analytics
-                            </a>
-                        </nav>
-                    </div>
-                </div>
-                <div class="lg:col-span-3">
-                    <div id="manageFlightsContent" class="admin-content card-custom p-6 md:p-8">
-                        <h3 class="text-2xl font-semibold mb-6">Manage Flights</h3>
-                        <button class="btn-custom btn-primary-custom mb-6"><i data-lucide="plus-circle" class="inline-block mr-1 lucide-sm"></i> Add New Flight</button>
-                        <p class="text-gray-600">Table of flights will be displayed here. (e.g., with columns for Flight No., Origin, Destination, Date, Status, Actions)</p>
-                    </div>
-                    <div id="manageBookingsContent" class="admin-content card-custom p-6 md:p-8 hidden">
-                        <h3 class="text-2xl font-semibold mb-6">Manage Bookings</h3>
-                        <p class="text-gray-600">Table of bookings will be displayed here. (e.g., Booking ID, Passenger, Flight, Date, Status, Actions)</p>
-                    </div>
-                    <div id="managePassengersContent" class="admin-content card-custom p-6 md:p-8 hidden">
-                        <h3 class="text-2xl font-semibold mb-6">Manage Passengers</h3>
-                        <p class="text-gray-600">Table of passengers will be displayed here. (e.g., Passenger ID, Name, Email, Total Bookings, Actions)</p>
-                    </div>
-                    <div id="analyticsContent" class="admin-content card-custom p-6 md:p-8 hidden">
-                        <h3 class="text-2xl font-semibold mb-6">Analytics</h3>
-                        <p class="text-gray-600">Charts and analytics data will be displayed here.</p>
-                        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center text-gray-500">
-                            Placeholder for Chart (e.g., Bookings per month)
+    <head th:replace="fragments/head :: headFragment"></head>
+    <body class="text-gray-800">
+        <div th:replace="fragments/nav :: navbar"></div>
+
+        <section id="admin-dashboard" class="page-section p-6 md:p-10">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">Admin
+                    Dashboard</h2>
+                <div class="grid lg:grid-cols-4 gap-8">
+
+                    <!-- Sidebar -->
+                    <div class="lg:col-span-1">
+                        <div class="card-custom p-6">
+                            <div class="flex flex-col items-center mb-6">
+                                <img
+                                    th:src="@{/images/admin.png}"
+                                    alt="Admin Avatar"
+                                    class="w-24 h-24 rounded-full mb-4">
+                                <h3 class="text-xl font-semibold"
+                                    th:text="${admin.name}">Admin Name</h3>
+                                <p class="text-sm text-gray-500"
+                                    th:text="${admin.email}">admin@example.com</p>
+                            </div>
+                            <nav class="space-y-2">
+                                <a th:href="@{/admin/flights}"
+                                    th:classappend="${activeTab == 'flights'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
+                                    <i data-lucide="plane"
+                                        class="mr-3 lucide-sm"></i> Manage
+                                    Flights
+                                </a>
+                                <a th:href="@{/admin/users}"
+                                    th:classappend="${activeTab == 'users'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
+                                    <i data-lucide="users"
+                                        class="mr-3 lucide-sm"></i> View Users
+                                </a>
+                                <a th:href="@{/admin/bookings}"
+                                    th:classappend="${activeTab == 'bookings'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
+                                    <i data-lucide="calendar-check"
+                                        class="mr-3 lucide-sm"></i> All Bookings
+                                </a>
+                                <a th:href="@{/admin/profile}"
+                                    th:classappend="${activeTab == 'profile'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
+                                    <i data-lucide="settings"
+                                        class="mr-3 lucide-sm"></i> Profile
+                                    Settings
+                                </a>
+                            </nav>
                         </div>
                     </div>
+
+                    <!-- Main content -->
+                    <div class="lg:col-span-3">
+                        <!-- Flights Management -->
+                        <div th:if="${activeTab == 'flights'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Manage
+                                Flights</h3>
+                            <div class="mb-4 flex justify-end">
+                                <button id="showFlightModal"
+                                    class="btn-custom btn-primary-custom-green">
+                                    + Add New Flight
+                                </button>
+                            </div>
+
+                            <div class="space-y-4">
+                                <div
+                                    class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow flex justify-between items-center">
+                                    <div>
+                                        <p
+                                            class="text-lg font-semibold text-sky-700">Flight
+                                            AL 205 | JFK → LHR</p>
+                                        <p class="text-sm text-gray-500">Date:
+                                            Oct 28, 2024 | Price: $350</p>
+                                    </div>
+                                    <div class="space-x-2">
+                                        <button
+                                            class="btn-custom btn-secondary-custom px-3 py-1 text-sm">Edit</button>
+                                        <button
+                                            class="btn-custom btn-danger-custom px-3 py-1 text-sm">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Users Management -->
+                        <div th:if="${activeTab == 'users'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">All
+                                Users</h3>
+                            <div class="overflow-x-auto">
+                                <table
+                                    class="min-w-full table-auto border-collapse border border-gray-200">
+                                    <thead class="bg-gray-100">
+                                        <tr>
+                                            <th
+                                                class="border px-4 py-2 text-left">Name</th>
+                                            <th
+                                                class="border px-4 py-2 text-left">Email</th>
+                                            <th
+                                                class="border px-4 py-2 text-left">Registered
+                                                On</th>
+                                            <th
+                                                class="border px-4 py-2 text-left">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="user : ${users}"
+                                            class="hover:bg-gray-50">
+                                            <td class="border px-4 py-2"
+                                                th:text="${user.name}">John
+                                                Doe</td>
+                                            <td class="border px-4 py-2"
+                                                th:text="${user.email}">john@example.com</td>
+                                            <td
+                                                class="border px-4 py-2 space-x-2">
+                                                <button
+                                                    class="btn-custom btn-secondary-custom px-2 py-1 text-sm">View</button>
+                                                <button
+                                                    class="btn-custom btn-danger-custom px-2 py-1 text-sm">Delete</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Bookings Overview -->
+                        <div th:if="${activeTab == 'bookings'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">All
+                                Bookings</h3>
+                            <p class="text-gray-600">Booking list with flight,
+                                user, seats, status...</p>
+                        </div>
+
+                        <!-- Admin Profile -->
+                        <div th:if="${activeTab == 'profile'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Profile
+                                Settings</h3>
+                            <form class="space-y-6">
+                                <p class="text-gray-600">Profile editing form
+                                    will be here.</p>
+                                <button type="submit"
+                                    class="btn-custom btn-primary-custom-green">Save
+                                    Changes</button>
+                            </form>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+        </section>
+
+        <!-- for add new flight -->
+        <div id="flightModal"
+            class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+            <div class="bg-white rounded-lg p-6 w-full max-w-2xl relative pt-8">
+                <button id="closeFlightModal"
+                    class="absolute top-2 right-2 text-gray-500 hover:text-gray-700">&times;</button>
+                <h3 class="text-2xl font-semibold mb-4">Add New Flight</h3>
+                <form th:action="@{/admin/flights}" method="post"
+                    class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Flight Number -->
+                    <div class="col-span-1 md:col-span-2">
+                        <label class="block font-medium">Flight Number</label>
+                        <input type="text" name="flightNumber"
+                            placeholder="Flight Number" required
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Source -->
+                    <div>
+                        <label class="block font-medium">Source</label>
+                        <input type="text" name="source" placeholder="Source"
+                            required
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Destination -->
+                    <div>
+                        <label class="block font-medium">Destination</label>
+                        <input type="text" name="destination"
+                            placeholder="Destination" required
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Departure Time -->
+                    <div>
+                        <label class="block font-medium">Departure Time</label>
+                        <input type="datetime-local" name="departureTime"
+                            required
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Arrival Time -->
+                    <div>
+                        <label class="block font-medium">Arrival Time</label>
+                        <input type="datetime-local" name="arrivalTime" required
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Price -->
+                    <div>
+                        <label class="block font-medium">Price</label>
+                        <input type="number" name="price" placeholder="Price"
+                            required
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Total Seats -->
+                    <div>
+                        <label class="block font-medium">Total Seats</label>
+                        <input type="number" name="totalSeats"
+                            placeholder="Total Seats"
+                            class="input-custom w-full py-2 px-3 border rounded">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="col-span-1 md:col-span-2">
+                        <button type="submit"
+                            class="btn-custom btn-primary-custom-green w-full mt-2">Add
+                            Flight</button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </section>
-    <script src="@{/script.js}"></script>
-</body>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const openBtn = document.getElementById("showFlightModal");
+                const closeBtn = document.getElementById("closeFlightModal");
+                const modal = document.getElementById("flightModal");
+
+                openBtn.addEventListener("click", () => {
+                    modal.classList.remove("hidden");
+                });
+
+                closeBtn.addEventListener("click", () => {
+                    modal.classList.add("hidden");
+                });
+
+                // Close modal when clicking outside the modal content
+                modal.addEventListener("click", (e) => {
+                    if (e.target === modal) {
+                        modal.classList.add("hidden");
+                    }
+                });
+            });
+            </script>
+
+        <script th:src="@{/script.js}"></script>
+    </body>
 </html>
