@@ -88,6 +88,6 @@ public class AdminController {
         if (!checkAdmin(session))
             return "redirect:/";
         flightService.createFlight(flight); // Save flight to DB
-        return "redirect:/admin"; // Redirect back to flights page
+        return "redirect:/admin/flights"; // Redirect back to flights page
     }
 }
