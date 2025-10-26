@@ -14,8 +14,7 @@
                     <div class="lg:col-span-1">
                         <div class="card-custom p-6">
                             <div class="flex flex-col items-center mb-6">
-                                <img
-                                    th:src="@{/images/admin.png}"
+                                <img th:src="@{/images/admin.png}"
                                     alt="Admin Avatar"
                                     class="w-24 h-24 rounded-full mb-4">
                                 <h3 class="text-xl font-semibold"
@@ -54,13 +53,13 @@
                         </div>
                     </div>
 
-                    <!-- Main content -->
-                    <div class="lg:col-span-3">
-                        <!-- Flights Management -->
+                    <!-- Main Content -->
+                    <div class="lg:col-span-3 space-y-4">
+
+                        <!-- Flights Tab -->
                         <div th:if="${activeTab == 'flights'}"
-                            class="dashboard-content card-custom p-6 md:p-8">
-                            <h3 class="text-2xl font-semibold mb-6">Manage
-                                Flights</h3>
+                            class="w-full space-y-4">
+
                             <div class="mb-4 flex justify-end">
                                 <button id="showFlightModal"
                                     class="btn-custom btn-primary-custom-green">
@@ -68,27 +67,50 @@
                                 </button>
                             </div>
 
-                            <div class="space-y-4">
-                                <div
-                                    class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow flex justify-between items-center">
-                                    <div>
-                                        <p
-                                            class="text-lg font-semibold text-sky-700">Flight
-                                            AL 205 | JFK → LHR</p>
-                                        <p class="text-sm text-gray-500">Date:
-                                            Oct 28, 2024 | Price: $350</p>
-                                    </div>
-                                    <div class="space-x-2">
-                                        <button
-                                            class="btn-custom btn-secondary-custom px-3 py-1 text-sm">Edit</button>
-                                        <button
-                                            class="btn-custom btn-danger-custom px-3 py-1 text-sm">Delete</button>
-                                    </div>
+                            <!-- No flights message -->
+                            <div th:if="${#lists.isEmpty(flights)}"
+                                class="text-gray-500 text-center p-4 border border-gray-200 rounded-lg w-full">
+                                No flights available.
+                            </div>
+
+                            <!-- Flights list -->
+                            <div th:each="flight : ${flights}"
+                                class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow flex justify-between items-center w-full">
+                                <div>
+                                    <p
+                                        class="text-lg font-semibold text-sky-700">
+                                        Flight <span
+                                            th:text="${flight.flightNumber}"></span>
+                                        |
+                                        <span th:text="${flight.source}"></span>
+                                        →
+                                        <span
+                                            th:text="${flight.destination}"></span>
+                                    </p>
+                                    <p class="text-sm text-gray-500">
+                                        Departure: <span
+                                            th:text="${#temporals.format(flight.departureTime, 'MMM dd, yyyy HH:mm')}"></span>
+                                        |
+                                        Arrival: <span
+                                            th:text="${#temporals.format(flight.arrivalTime, 'MMM dd, yyyy HH:mm')}"></span>
+                                        |
+                                        Price: $<span
+                                            th:text="${flight.price}"></span> |
+                                        Seats: <span
+                                            th:text="${flight.totalSeats}"></span>
+                                    </p>
+                                </div>
+                                <div class="space-x-2">
+                                    <button
+                                        class="btn-custom btn-secondary-custom px-3 py-1 text-sm">Edit</button>
+                                    <button
+                                        class="btn-custom btn-danger-custom px-3 py-1 text-sm">Delete</button>
                                 </div>
                             </div>
+
                         </div>
 
-                        <!-- Users Management -->
+                        <!-- Users Tab -->
                         <div th:if="${activeTab == 'users'}"
                             class="dashboard-content card-custom p-6 md:p-8">
                             <h3 class="text-2xl font-semibold mb-6">All
@@ -117,8 +139,7 @@
                                                 Doe</td>
                                             <td class="border px-4 py-2"
                                                 th:text="${user.email}">john@example.com</td>
-                                            <td
-                                                class="border px-4 py-2 space-x-2">
+                                            <td class="border px-4 py-2">
                                                 <button
                                                     class="btn-custom btn-secondary-custom px-2 py-1 text-sm">View</button>
                                                 <button
@@ -130,7 +151,7 @@
                             </div>
                         </div>
 
-                        <!-- Bookings Overview -->
+                        <!-- Bookings Tab -->
                         <div th:if="${activeTab == 'bookings'}"
                             class="dashboard-content card-custom p-6 md:p-8">
                             <h3 class="text-2xl font-semibold mb-6">All
@@ -139,7 +160,7 @@
                                 user, seats, status...</p>
                         </div>
 
-                        <!-- Admin Profile -->
+                        <!-- Profile Tab -->
                         <div th:if="${activeTab == 'profile'}"
                             class="dashboard-content card-custom p-6 md:p-8">
                             <h3 class="text-2xl font-semibold mb-6">Profile
