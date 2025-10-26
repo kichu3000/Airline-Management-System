@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -30,7 +31,7 @@ public class DashboardController {
             return "redirect:/"; // not logged in
         }
         model.addAttribute("activeTab", "upcoming");
-        return "dashboard";
+        return "user-dashboard";
     }
 
     @GetMapping("/history")
@@ -40,7 +41,7 @@ public class DashboardController {
             return "redirect:/";
         }
         model.addAttribute("activeTab", "history");
-        return "dashboard";
+        return "user-dashboard";
     }
 
     @GetMapping("/profile")
@@ -50,7 +51,7 @@ public class DashboardController {
             return "redirect:/";
         }
         model.addAttribute("activeTab", "profile");
-        return "dashboard";
+        return "user-dashboard";
     }
 
     @GetMapping("/booking")
@@ -60,7 +61,23 @@ public class DashboardController {
             return "redirect:/";
         }
         model.addAttribute("activeTab", "booking");
-        return "dashboard";
+        return "user-dashboard";
+    }
+    
+    @GetMapping("/search")
+    public String searchFlights(@RequestParam(required = false) String source,
+                               @RequestParam(required = false) String destination,
+                               @RequestParam(required = false) String date,
+                               Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/";
+        }
+        
+        // Get all flights for now (you can implement search logic later)
+        model.addAttribute("flights", java.util.Collections.emptyList());
+        model.addAttribute("activeTab", "booking");
+        return "user-dashboard";
     }
 
 }

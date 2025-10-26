@@ -20,6 +20,16 @@ public class AuthController {
     @Autowired
     private UserService userService;
 
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
+    }
+
+    @GetMapping("/signup")
+    public String signupPage() {
+        return "signup";
+    }
+
     @PostMapping("/signup")
     public String signup(@RequestParam String name,
             @RequestParam String email,
@@ -82,8 +92,9 @@ public class AuthController {
             return "redirect:/";// not logged in → redirect to ..
         }
         model.addAttribute("user", user);
+        model.addAttribute("activeTab", "home");
         System.out.println("User -- " + user);
-        return "dashboard";
+        return "user-dashboard";
     }
 
     // code for logout😊

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headFragment"></head>
+<body class="bg-gray-100">
+    <!-- Navigation -->
+    <div th:replace="fragments/nav :: navbar"></div>
+    
+    <div class="flex h-screen bg-gray-100">
+        <!-- Sidebar -->
+        <div class="w-64 bg-white shadow-lg">
+            <div class="p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-6">My Dashboard</h2>
+                <nav class="space-y-2">
+                    <a th:href="@{/dashboard}" 
+                       th:classappend="${activeTab == 'home'} ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : 'text-gray-600 hover:bg-gray-100'"
+                       class="flex items-center px-4 py-3 rounded-lg transition-colors">
+                        <i data-lucide="home" class="w-5 h-5 mr-3"></i>
+                        Dashboard
+                    </a>
+                    <a th:href="@{/dashboard/upcoming}" 
+                       th:classappend="${activeTab == 'upcoming'} ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : 'text-gray-600 hover:bg-gray-100'"
+                       class="flex items-center px-4 py-3 rounded-lg transition-colors">
+                        <i data-lucide="calendar" class="w-5 h-5 mr-3"></i>
+                        Upcoming Flights
+                    </a>
+                    <a th:href="@{/dashboard/booking}" 
+                       th:classappend="${activeTab == 'booking'} ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : 'text-gray-600 hover:bg-gray-100'"
+                       class="flex items-center px-4 py-3 rounded-lg transition-colors">
+                        <i data-lucide="search" class="w-5 h-5 mr-3"></i>
+                        Book Flight
+                    </a>
+                    <a th:href="@{/dashboard/history}" 
+                       th:classappend="${activeTab == 'history'} ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : 'text-gray-600 hover:bg-gray-100'"
+                       class="flex items-center px-4 py-3 rounded-lg transition-colors">
+                        <i data-lucide="clock" class="w-5 h-5 mr-3"></i>
+                        Flight History
+                    </a>
+                    <a th:href="@{/dashboard/profile}" 
+                       th:classappend="${activeTab == 'profile'} ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : 'text-gray-600 hover:bg-gray-100'"
+                       class="flex items-center px-4 py-3 rounded-lg transition-colors">
+                        <i data-lucide="user" class="w-5 h-5 mr-3"></i>
+                        Profile
+                    </a>
+                </nav>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="flex-1 overflow-y-auto">
+            <div class="p-8">
+                <!-- Dashboard Home -->
+                <div th:if="${activeTab == 'home'}">
+                    <div class="mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, <span th:text="${user.name}">User</span>!</h1>
+                        <p class="text-gray-600">Manage your flights and bookings</p>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                                    <i data-lucide="ticket" class="w-6 h-6"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-600">Upcoming Flights</p>
+                                    <p class="text-2xl font-semibold text-gray-900">2</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                                    <i data-lucide="check-circle" class="w-6 h-6"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-600">Completed Flights</p>
+                                    <p class="text-2xl font-semibold text-gray-900">5</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white p-6 rounded-lg shadow-md">
+                            <div class="flex items-center">
+                                <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
+                                    <i data-lucide="dollar-sign" class="w-6 h-6"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <p class="text-sm font-medium text-gray-600">Total Spent</p>
+                                    <p class="text-2xl font-semibold text-gray-900">$1,250</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Recent Bookings -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Bookings</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                                <div class="flex items-center">
+                                    <div class="p-2 bg-blue-100 rounded-lg">
+                                        <i data-lucide="plane" class="w-5 h-5 text-blue-600"></i>
+                                    </div>
+                                    <div class="ml-4">
+                                        <p class="font-medium text-gray-900">QJ-001</p>
+                                        <p class="text-sm text-gray-600">NYC → LAX</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-medium text-gray-900">Dec 25, 2024</p>
+                                    <p class="text-sm text-gray-600">14:30 - 17:45</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-medium text-gray-900">$299</p>
+                                    <span class="px-2 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-800">Confirmed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Flight -->
+                <div th:if="${activeTab == 'booking'}">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Book a Flight</h2>
+                        <p class="text-gray-600">Search and book your next flight</p>
+                    </div>
+                    
+                    <!-- Search Form -->
+                    <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                        <form th:action="@{/dashboard/search}" method="get" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">From</label>
+                                <input type="text" name="source" placeholder="City or Airport" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">To</label>
+                                <input type="text" name="destination" placeholder="City or Airport" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Departure Date</label>
+                                <input type="date" name="date" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                            </div>
+                            <div class="flex items-end">
+                                <button type="submit" class="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    <i data-lucide="search" class="w-4 h-4 inline mr-2"></i>
+                                    Search Flights
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <!-- Available Flights -->
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Available Flights</h3>
+                        <div class="space-y-4">
+                            <div th:each="flight : ${flights}" class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="p-3 bg-blue-100 rounded-lg">
+                                            <i data-lucide="plane" class="w-6 h-6 text-blue-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="font-medium text-gray-900" th:text="${flight.flightNumber}">QJ-001</p>
+                                            <p class="text-sm text-gray-600" th:text="${flight.source + ' → ' + flight.destination}">NYC → LAX</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Departure</p>
+                                        <p class="font-medium text-gray-900" th:text="${#temporals.format(flight.departureTime, 'HH:mm')}">14:30</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Arrival</p>
+                                        <p class="font-medium text-gray-900" th:text="${#temporals.format(flight.arrivalTime, 'HH:mm')}">17:45</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Duration</p>
+                                        <p class="font-medium text-gray-900">3h 15m</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Price</p>
+                                        <p class="text-xl font-bold text-blue-600" th:text="'$' + ${flight.price}">$299</p>
+                                    </div>
+                                    <div>
+                                        <button onclick="bookFlight(this)" th:data-flight-id="${flight.id}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                            Book Now
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upcoming Flights -->
+                <div th:if="${activeTab == 'upcoming'}">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Upcoming Flights</h2>
+                        <p class="text-gray-600">Your scheduled flights</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="p-3 bg-blue-100 rounded-lg">
+                                            <i data-lucide="plane" class="w-6 h-6 text-blue-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="font-medium text-gray-900">QJ-001</p>
+                                            <p class="text-sm text-gray-600">NYC → LAX</p>
+                                            <p class="text-sm text-gray-500">Dec 25, 2024</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Departure</p>
+                                        <p class="font-medium text-gray-900">14:30</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Arrival</p>
+                                        <p class="font-medium text-gray-900">17:45</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Seat</p>
+                                        <p class="font-medium text-gray-900">12A</p>
+                                    </div>
+                                    <div>
+                                        <span class="px-3 py-1 text-sm font-semibold rounded-full bg-green-100 text-green-800">Confirmed</span>
+                                    </div>
+                                    <div>
+                                        <button class="text-blue-600 hover:text-blue-900 mr-3">View Details</button>
+                                        <button class="text-red-600 hover:text-red-900">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight History -->
+                <div th:if="${activeTab == 'history'}">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Flight History</h2>
+                        <p class="text-gray-600">Your completed flights</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="space-y-4">
+                            <div class="border border-gray-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <div class="p-3 bg-gray-100 rounded-lg">
+                                            <i data-lucide="plane" class="w-6 h-6 text-gray-600"></i>
+                                        </div>
+                                        <div class="ml-4">
+                                            <p class="font-medium text-gray-900">QJ-002</p>
+                                            <p class="text-sm text-gray-600">LAX → NYC</p>
+                                            <p class="text-sm text-gray-500">Dec 20, 2024</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Departure</p>
+                                        <p class="font-medium text-gray-900">09:15</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Arrival</p>
+                                        <p class="font-medium text-gray-900">12:30</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-600">Seat</p>
+                                        <p class="font-medium text-gray-900">8B</p>
+                                    </div>
+                                    <div>
+                                        <span class="px-3 py-1 text-sm font-semibold rounded-full bg-gray-100 text-gray-800">Completed</span>
+                                    </div>
+                                    <div>
+                                        <button class="text-blue-600 hover:text-blue-900">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile -->
+                <div th:if="${activeTab == 'profile'}">
+                    <div class="mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Profile Settings</h2>
+                        <p class="text-gray-600">Manage your account information</p>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <form class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                                    <input type="text" th:value="${user.name}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                    <input type="email" th:value="${user.email}" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                </div>
+                            </div>
+                            <div class="flex justify-end">
+                                <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                    Update Profile
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footerFragment"></div>
+    
+    <script>
+        function bookFlight(button) {
+            const flightId = button.getAttribute('data-flight-id');
+            if (confirm('Are you sure you want to book this flight?')) {
+                // Here you would implement the booking logic
+                alert('Flight booking functionality will be implemented here!');
+            }
+        }
+    </script>
+</body>
+</html>

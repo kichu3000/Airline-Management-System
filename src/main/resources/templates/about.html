@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+    <div th:replace="fragments/nav :: navbar"></div>
+    
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="hero-title">About QuinJet Airways</h1>
+            <p class="hero-subtitle">Your trusted partner in air travel since 2024</p>
+        </div>
+    </section>
+    
+    <section class="about-content">
+        <div class="container">
+            
+            <div class="content-section">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="section-text">
+                    QuinJet Airways is committed to providing seamless, secure, and swift air travel experiences 
+                    to passengers worldwide. Our state-of-the-art Airline Management System streamlines every 
+                    aspect of your journey, from booking to boarding.
+                </p>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Why Choose QuinJet?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✈️</div>
+                        <h3>Wide Network</h3>
+                        <p>Access to hundreds of destinations worldwide with our extensive flight network.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3>Secure Booking</h3>
+                        <p>Industry-leading security protocols to protect your personal and payment information.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Instant Confirmation</h3>
+                        <p>Get immediate booking confirmations and digital tickets sent to your email.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Best Prices</h3>
+                        <p>Competitive pricing with transparent fees and flexible cancellation policies.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Easy Management</h3>
+                        <p>Manage your bookings, check flight status, and make changes with ease.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛟</div>
+                        <h3>24/7 Support</h3>
+                        <p>Round-the-clock customer support to assist you at every step of your journey.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Our Technology</h2>
+                <p class="section-text">
+                    Built with cutting-edge technology including Spring Boot, Java 21, and modern web standards, 
+                    our Airline Management System ensures reliability, scalability, and exceptional performance. 
+                    We leverage advanced database management, secure authentication, and responsive design to 
+                    provide you with the best user experience across all devices.
+                </p>
+            </div>
+            
+            <div class="content-section">
+                <h2 class="section-title">Our Values</h2>
+                <div class="values-list">
+                    <div class="value-item">
+                        <strong>Customer First:</strong> Your satisfaction and safety are our top priorities.
+                    </div>
+                    <div class="value-item">
+                        <strong>Innovation:</strong> Continuously improving our platform with the latest technology.
+                    </div>
+                    <div class="value-item">
+                        <strong>Transparency:</strong> Clear pricing, honest communication, and no hidden fees.
+                    </div>
+                    <div class="value-item">
+                        <strong>Reliability:</strong> Dependable service you can count on for every journey.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Book your next flight with QuinJet and experience the difference.</p>
+                <a href="/" class="btn btn-primary btn-large">Search Flights</a>
+            </div>
+        </div>
+    </section>
+    
+    <div th:replace="fragments/footer :: footerFragment"></div>
+</body>
+</html>

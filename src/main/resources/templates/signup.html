@@ -1,63 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/head :: headFragment"></head>
-    <body
-        class="text-gray-800 bg-gray-50"
-        style="background-image: url('/images/loginPlane.jpg'); background-size: cover; background-position: center;">
-
-        <!-- Optional Navbar at top -->
-        <div th:replace="fragments/nav :: navbar"></div>
-
-        <!-- Centered form container -->
-        <div class="flex justify-center mt-5 mb-6 px-4">
-            <div class="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800">Sign Up</h2>
-                </div>
-
-                <form id="signupForm" th:action="@{/signup}" method="post"
-                    class="space-y-6">
-                    <div>
-                        <label for="signupName" class="form-label-custom">Full
-                            Name</label>
-                        <input type="text" id="signupName" name="name"
-                            class="input-field-custom"
-                            placeholder="Your Name" required>
-                    </div>
-
-                    <div>
-                        <label for="signupEmail" class="form-label-custom">Email
-                            Address</label>
-                        <input type="email" id="signupEmail" name="email"
-                            class="input-field-custom"
-                            placeholder="you@example.com" required>
-                    </div>
-
-                    <div>
-                        <label for="signupPassword"
-                            class="form-label-custom">Password</label>
-                        <input type="password" id="signupPassword"
-                            name="password"
-                            class="input-field-custom"
-                            placeholder="••••••••" required>
-                    </div>
-
-                    <button type="submit" id="signupSubmitButton"
-                        class="btn-custom btn-primary-custom w-full">Sign Up
-                    </button>
-
-                    <p class="text-sm text-center text-gray-600">
-                        Already have an account?
-                        <a th:href="@{/login}"
-                            class="font-medium text-sky-600 hover:text-sky-500">Login</a>
-                    </p>
-                </form>
-            </div>
-            <div th:if="${error}" class="toast-custom show bg-red-500">
-                <span th:text="${error}"></span>
-            </div>
-
-            <!-- JS -->
-            <script th:src="@{/script.js}"></script>
-        </body>
-    </html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: headFragment"></head>
+<body>
+  <div th:replace="fragments/nav :: navbar"></div>
+  <section class="min-h-screen flex items-center justify-center bg-gray-50">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center">Sign Up for QuinJet</h2>
+      <form th:action="@{/signup}" method="post">
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold text-sm" for="name">Full Name</label>
+          <input type="text" id="name" name="name" required
+              class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-sky-400">
+        </div>
+        <div class="mb-4">
+          <label class="block mb-2 font-semibold text-sm" for="email">Email Address</label>
+          <input type="email" id="email" name="email" required
+              class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-sky-400">
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 font-semibold text-sm" for="password">Password</label>
+          <input type="password" id="password" name="password" required
+              class="w-full px-3 py-2 border rounded focus:outline-none focus:ring focus:border-sky-400">
+        </div>
+        <button type="submit"
+          class="w-full text-center bg-sky-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-sky-700 transition">
+          Sign Up</button>
+      </form>
+      <p class="text-sm mt-4 text-center">Already have an account? <a th:href="@{/login}" class="text-sky-600 hover:underline">Login</a></p>
+    </div>
+  </section>
+  <div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

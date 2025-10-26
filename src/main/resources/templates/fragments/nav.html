@@ -1,49 +1,133 @@
-<nav class="bg-sky-800 shadow-lg sticky top-0 z-40" th:fragment="navbar">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-20">
-            <div class="flex items-center">
-                <a href="#"
-                    class="flex-shrink-0 text-white text-2xl font-bold flex items-center nav-link-custom"
-                    data-page="home">
-                    <i data-lucide="plane" class="mr-2"></i>
-                    QuinJet
-                </a>
-            </div>
-            <div class="hidden md:block">
-                <div class="ml-10 flex items-baseline space-x-4">
-                    <a th:href="@{/}"
-                        class="nav-link-custom ">Home</a>
-                    <a href="#" class="nav-link-custom"
-                        data-page="searchResults">Flights</a>
-                    <a href="#" class="nav-link-custom"
-                        data-page="booking">About</a>
-                    <a href="#" class="nav-link-custom"
-                        data-page="dashboard">Contact</a>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <nav th:fragment="navbar" class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a th:href="@{/}" class="text-2xl font-bold text-sky-600 hover:text-sky-700">
+                        QuinJet
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a th:href="@{/}" 
+                       class="text-gray-700 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Home
+                    </a>
+                    <a th:href="@{/flights}" 
+                       class="text-gray-700 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Flights
+                    </a>
+                    <a th:href="@{/about}" 
+                       class="text-gray-700 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                        About
+                    </a>
+                    <a th:href="@{/contact}" 
+                       class="text-gray-700 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                        Contact
+                    </a>
+                </div>
+
+                <!-- User Actions -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <!-- If user is logged in -->
+                    <div th:if="${session.user != null}">
+                        <a th:href="${session.user.isAdmin()} ? @{/admin} : @{/dashboard}"
+                           class="text-gray-700 hover:text-sky-600 px-3 py-2 rounded-md text-sm font-medium transition">
+                            Dashboard
+                        </a>
+                        <a th:href="@{/logout}" 
+                           class="bg-sky-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-sky-700 transition">
+                            Logout
+                        </a>
+                    </div>
+                    
+                    <!-- If user is not logged in -->
+                    <div th:if="${session.user == null}" class="flex space-x-2">
+                        <a th:href="@{/login}" 
+                           class="text-sky-600 border border-sky-600 px-4 py-2 rounded-md text-sm font-medium hover:bg-sky-50 transition">
+                            Login
+                        </a>
+                        <a th:href="@{/signup}" 
+                           class="bg-sky-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-sky-700 transition">
+                            Sign Up
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" type="button" 
+                            class="text-gray-700 hover:text-sky-600 focus:outline-none focus:text-sky-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
-            <a id="loginModalButton"
-                th:if="${session.user == null}"
-                th:href="@{/login}"
-                class="nav-link-custom flex items-center">
-                <i data-lucide="log-in" class="mr-1 lucide-sm"></i>
-                Login
-            </a>
+        </div>
 
-            <div th:if="${session.user != null}"
-                class="flex items-center space-x-4">
-                <!-- User name -->
-                <span class="text-white font-semibold">
-                    Welcome,<a th:href="@{/dashboard}"> <span
-                            th:text="${session.user.name}">User</span></a>
-                </span>
-
-                <!-- Logout button -->
-                <a th:href="@{/logout}"
-                    class="nav-link-custom flex items-center">
-                    <i data-lucide="log-out" class="mr-1 lucide-sm"></i>
-                    Logout
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a th:href="@{/}" 
+                   class="block text-gray-700 hover:bg-sky-50 hover:text-sky-600 px-3 py-2 rounded-md text-base font-medium">
+                    Home
                 </a>
+                <a th:href="@{/flights}" 
+                   class="block text-gray-700 hover:bg-sky-50 hover:text-sky-600 px-3 py-2 rounded-md text-base font-medium">
+                    Flights
+                </a>
+                <a th:href="@{/about}" 
+                   class="block text-gray-700 hover:bg-sky-50 hover:text-sky-600 px-3 py-2 rounded-md text-base font-medium">
+                    About
+                </a>
+                <a th:href="@{/contact}" 
+                   class="block text-gray-700 hover:bg-sky-50 hover:text-sky-600 px-3 py-2 rounded-md text-base font-medium">
+                    Contact
+                </a>
+                
+                <!-- Mobile user actions -->
+                <div th:if="${session.user != null}" class="pt-4 border-t border-gray-200">
+                    <a th:href="${session.user.isAdmin()} ? @{/admin} : @{/dashboard}"
+                       class="block text-gray-700 hover:bg-sky-50 hover:text-sky-600 px-3 py-2 rounded-md text-base font-medium">
+                        Dashboard
+                    </a>
+                    <a th:href="@{/logout}" 
+                       class="block text-gray-700 hover:bg-sky-50 hover:text-sky-600 px-3 py-2 rounded-md text-base font-medium">
+                        Logout
+                    </a>
+                </div>
+                
+                <div th:if="${session.user == null}" class="pt-4 border-t border-gray-200 space-y-2">
+                    <a th:href="@{/login}" 
+                       class="block text-center text-sky-600 border border-sky-600 px-3 py-2 rounded-md text-base font-medium hover:bg-sky-50">
+                        Login
+                    </a>
+                    <a th:href="@{/signup}" 
+                       class="block text-center bg-sky-600 text-white px-3 py-2 rounded-md text-base font-medium hover:bg-sky-700">
+                        Sign Up
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (menuButton && mobileMenu) {
+                menuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
