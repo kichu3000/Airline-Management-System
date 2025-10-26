@@ -36,12 +36,12 @@
                                     <i data-lucide="users"
                                         class="mr-3 lucide-sm"></i> View Users
                                 </a>
-                                <a th:href="@{/admin/bookings}"
+                                <!-- <a th:href="@{/admin/bookings}"
                                     th:classappend="${activeTab == 'bookings'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
                                     class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
                                     <i data-lucide="calendar-check"
                                         class="mr-3 lucide-sm"></i> All Bookings
-                                </a>
+                                </a> -->
                             </nav>
                         </div>
                     </div>
@@ -172,13 +172,38 @@
                             </div>
                         </div>
 
-                        <!-- Bookings Tab -->
                         <div th:if="${activeTab == 'bookings'}"
                             class="dashboard-content card-custom p-6 md:p-8">
                             <h3 class="text-2xl font-semibold mb-6">All
                                 Bookings</h3>
-                            <p class="text-gray-600">Booking list with flight,
-                                user, seats, status...</p>
+                            <p class="text-gray-600 mb-4">Booking list with
+                                flight, user, seats, status...</p>
+
+                            <table class="min-w-full border border-gray-200">
+                                <thead>
+                                    <tr class="bg-gray-100">
+                                        <th class="px-4 py-2">Booking ID</th>
+                                        <th class="px-4 py-2">User</th>
+                                        <th class="px-4 py-2">Flight</th>
+                                        <th class="px-4 py-2">Seats</th>
+                                        <th class="px-4 py-2">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="booking : ${bookings}">
+                                        <td class="border px-4 py-2"
+                                            th:text="${booking.id}"></td>
+                                        <td class="border px-4 py-2"
+                                            th:text="${booking.user.name}"></td>
+                                        <td class="border px-4 py-2"
+                                            th:text="${booking.flight.name}"></td>
+                                        <td class="border px-4 py-2"
+                                            th:text="${booking.seats}"></td>
+                                        <td class="border px-4 py-2"
+                                            th:text="${booking.status}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
 
                     </div>

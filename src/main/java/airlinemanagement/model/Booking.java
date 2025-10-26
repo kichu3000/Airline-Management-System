@@ -98,4 +98,22 @@ public class Booking {
     public void setBookingTime(LocalDateTime bookingTime) {
         this.bookingTime = bookingTime;
     }
+
+    public String toString() {
+        // You should only include fields here that you want to see in the logs.
+        // For related objects (like Flight and User), printing their IDs or a
+        // simple representation prevents potential StackOverflowError (if they
+        // also call toString() on Booking) and keeps the output clean.
+        Long flightId = (flight != null) ? flight.getId() : null;
+        Long userId = (user != null) ? user.getId() : null;
+
+        return "Booking{" +
+                "id=" + id +
+                ", name='" + firstName + " " + lastName + '\'' +
+                ", seat='" + seat + '\'' +
+                ", bookingTime=" + bookingTime.toLocalDate() + // Keep the date simple
+                ", flightId=" + flightId +
+                ", userId=" + userId +
+                '}';
+    }
 }

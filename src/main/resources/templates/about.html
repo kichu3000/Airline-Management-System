@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head th:replace="fragments/head :: headFragment"></head>
+  <body class="text-gray-800">
+    <div th:replace="fragments/nav :: navbar"></div>
+    <main class="pb-16">
+      <section class="page-section py-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div class="md:col-span-2">
+              <h1 class="text-3xl font-bold mb-4">About QuinJet</h1>
+              <p class="text-gray-700 mb-4">QuinJet is a modern airline reservation platform built with travelers in mind. We connect you to hundreds of destinations with easy booking, secure payments, and 24/7 support. Our goal is to make travel planning simple, fast, and enjoyable.</p>
+              <p class="text-gray-700 mb-6">Founded by aviation enthusiasts, QuinJet focuses on seamless user experience, transparent pricing, and eco-friendly operations. Whether you travel for business or leisure, we aim to provide reliable service and great value.</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="p-4 bg-white rounded-lg shadow-sm">
+                  <h3 class="font-semibold mb-2">Our Mission</h3>
+                  <p class="text-sm text-gray-600">To empower people to explore the world with confidence and convenience.</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg shadow-sm">
+                  <h3 class="font-semibold mb-2">Our Values</h3>
+                  <p class="text-sm text-gray-600">Safety, Transparency, Customer-centricity, and Sustainability.</p>
+                </div>
+              </div>
+            </div>
+            <aside class="hidden md:block">
+              <div class="rounded-lg overflow-hidden shadow-lg">
+                <img src="/images/loginPlane3.jpg" alt="airplane" class="w-full object-cover h-56">
+              </div>
+              <div class="mt-4 p-4 bg-white rounded-lg shadow-sm text-sm text-gray-600">
+                <p><strong>Headquarters:</strong> Ernakulam, Kerala</p>
+                <p><strong>Support:</strong> support@quinjet.com</p>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div th:replace="fragments/footer :: footerFragment"></div>
+    <script th:src="@{/script.js}"></script>
+  </body>
+</html>

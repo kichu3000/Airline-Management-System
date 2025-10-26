@@ -1,6 +1,9 @@
 package airlinemanagement.controller;
 
 import airlinemanagement.model.User;
+import airlinemanagement.Util.ConsoleColor;
+import airlinemanagement.model.Booking;
+import airlinemanagement.repository.BookingRepository;
 import airlinemanagement.model.Flight;
 import airlinemanagement.service.FlightService;
 import airlinemanagement.service.UserService;
@@ -21,10 +24,12 @@ public class AdminController {
 
     private final FlightService flightService;
     private final UserService userService;
+    private final BookingRepository bookingRepository;
 
-    public AdminController(FlightService flightService, UserService userService) {
+    public AdminController(FlightService flightService, UserService userService, BookingRepository bookingRepository) {
         this.flightService = flightService;
         this.userService = userService;
+        this.bookingRepository = bookingRepository;
     }
 
     @ModelAttribute
@@ -82,6 +87,11 @@ public class AdminController {
     public String manageBookings(Model model, HttpSession session) {
         if (!checkAdmin(session))
             return "redirect:/";
+
+        // Fetch all bookings
+        List<Booking> bookings = bookingRepository.findAll(); // make sure you have BookingRepository autowired
+        model.addAttribute("bookings", bookings);
+        System.out.println(ConsoleColor.YELLOW + bookings + ConsoleColor.RESET);
         model.addAttribute("activeTab", "bookings");
         return "admin";
     }
