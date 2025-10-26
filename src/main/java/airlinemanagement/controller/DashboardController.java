@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -32,18 +33,17 @@ public class DashboardController {
         }
     }
 
-    
-
-
-
-    
-
     @GetMapping("/booking")
     public String bookingPage(@RequestParam(value = "flightId", required = false) Long flightId,
-            Model model, HttpSession session) {
+            Model model,
+            HttpSession session,
+            RedirectAttributes redirectAttributes) {
+
         User user = (User) session.getAttribute("user");
-        if (user == null)
-            return "redirect:/";
+        if (user == null) {
+            redirectAttributes.addFlashAttribute("error", "Please login first😊");
+            return "redirect:/"; // <- only return here if user is null
+        }
 
         Flight selectedFlight = null;
         if (flightId != null) {
@@ -52,8 +52,10 @@ public class DashboardController {
             selectedFlight = (Flight) session.getAttribute("selectedFlight");
         }
 
-        if (selectedFlight == null)
+        if (selectedFlight == null) {
+            redirectAttributes.addFlashAttribute("error", "Flight not selected");
             return "redirect:/flights";
+        }
 
         model.addAttribute("activeTab", "booking");
         model.addAttribute("flight", selectedFlight);
@@ -63,12 +65,6 @@ public class DashboardController {
         return "dashboard";
     }
 
-
-
-
-
-
-    
     @GetMapping("/upcoming")
     public String upcomingBookings(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");

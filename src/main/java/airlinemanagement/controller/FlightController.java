@@ -56,4 +56,8 @@ public class FlightController {
         return "redirect:/dashboard/booking"; // your user dashboard booking page
     }
 
+
+
+    
+
 }
