@@ -32,19 +32,7 @@ public class DashboardController {
         }
     }
 
-    @GetMapping("/upcoming")
-    public String upcomingBookings(Model model, HttpSession session) {
-        User user = (User) session.getAttribute("user");
-        if (user == null) {
-            return "redirect:/login"; // or home page
-        }
-
-        List<Booking> bookings = bookingService.getBookingsByUser(user.getId());
-        model.addAttribute("bookings", bookings);
-        model.addAttribute("activeTab", "upcoming");
-
-        return "dashboard";
-    }
+    
 
 
 
@@ -71,6 +59,26 @@ public class DashboardController {
         model.addAttribute("flight", selectedFlight);
         model.addAttribute("user", user);
         session.removeAttribute("selectedFlight");
+
+        return "dashboard";
+    }
+
+
+
+
+
+
+    
+    @GetMapping("/upcoming")
+    public String upcomingBookings(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login"; // or home page
+        }
+
+        List<Booking> bookings = bookingService.getBookingsByUser(user.getId());
+        model.addAttribute("bookings", bookings);
+        model.addAttribute("activeTab", "upcoming");
 
         return "dashboard";
     }

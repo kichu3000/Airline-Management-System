@@ -37,6 +37,7 @@ public class BookingController {
 
         Flight flight = flightService.getFlightById(flightId);
         String email = user.getEmail();
+
         Booking booking = new Booking();
         booking.setFirstName(firstName);
         booking.setLastName(lastName);
@@ -44,10 +45,12 @@ public class BookingController {
         booking.setPhone(phone);
         booking.setSeat(seat);
         booking.setFlight(flight);
+        booking.setUser(user); // <-- important!
 
         bookingService.saveBooking(booking);
 
         model.addAttribute("message", "Booking Confirmed!");
-        return "redirect:/dashboard/upcoming"; // You can create a success page
+        return "redirect:/dashboard/upcoming";
     }
+
 }
