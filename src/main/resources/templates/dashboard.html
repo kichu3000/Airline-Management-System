@@ -39,22 +39,6 @@
                                     Upcoming Bookings
                                 </a>
 
-                                <a th:href="@{/dashboard/history}"
-                                    th:classappend="${activeTab == 'history'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
-                                    <i data-lucide="history"
-                                        class="mr-3 lucide-sm"></i>
-                                    Booking History
-                                </a>
-
-                                <a th:href="@{/dashboard/profile}"
-                                    th:classappend="${activeTab == 'profile'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
-                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
-                                    <i data-lucide="user-cog"
-                                        class="mr-3 lucide-sm"></i>
-                                    Profile Settings
-                                </a>
-
                             </nav>
 
                         </div>
@@ -67,22 +51,32 @@
                             <h3 class="text-2xl font-semibold mb-6">Upcoming
                                 Bookings</h3>
                             <div class="space-y-6">
-                                <div
+
+                                <!-- Loop over user bookings -->
+                                <div th:each="booking : ${bookings}"
                                     class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
                                     <div
                                         class="flex justify-between items-start">
                                         <div>
                                             <p
                                                 class="text-lg font-semibold text-sky-700">
-                                                New York (JFK) <i
-                                                    data-lucide="arrow-right"
+                                                <span
+                                                    th:text="${booking.flight.source}">New
+                                                    York (JFK)</span>
+                                                <i data-lucide="arrow-right"
                                                     class="inline-block lucide-sm"></i>
-                                                London (LHR)
+                                                <span
+                                                    th:text="${booking.flight.destination}">London
+                                                    (LHR)</span>
                                             </p>
-                                            <p
-                                                class="text-sm text-gray-500">Flight
-                                                AL 205 | Oct 28, 2024 - 08:00
-                                                AM</p>
+                                            <p class="text-sm text-gray-500">
+                                                Flight <span
+                                                    th:text="${booking.flight.flightNumber}">AL
+                                                    205</span> |
+                                                <span
+                                                    th:text="${#temporals.format(booking.flight.departureTime, 'dd MMM yyyy - hh:mm a')}">Oct
+                                                    28, 2024 - 08:00 AM</span>
+                                            </p>
                                         </div>
                                         <span
                                             class="text-sm bg-green-100 text-green-700 px-3 py-1 rounded-full font-medium">Confirmed</span>
@@ -102,31 +96,16 @@
                                         </button>
                                     </div>
                                 </div>
+
+                                <!-- Optional: show message if no bookings -->
+                                <div th:if="${#lists.isEmpty(bookings)}"
+                                    class="text-gray-500 text-center">
+                                    You have no upcoming bookings.
+                                </div>
+
                             </div>
                         </div>
 
-                        <!-- Booking History -->
-                        <div th:if="${activeTab == 'history'}"
-                            class="dashboard-content card-custom p-6 md:p-8">
-                            <h3 class="text-2xl font-semibold mb-6">Booking
-                                History</h3>
-                            <p class="text-gray-600">No past bookings found.</p>
-                        </div>
-
-                        <!-- Profile Settings -->
-                        <div th:if="${activeTab == 'profile'}"
-                            class="dashboard-content card-custom p-6 md:p-8">
-                            <h3 class="text-2xl font-semibold mb-6">Profile
-                                Settings</h3>
-                            <form class="space-y-6">
-                                <p class="text-gray-600">Profile editing form
-                                    will be here. (e.g., Name, Email, Password
-                                    change)</p>
-                                <button type="submit"
-                                    class="btn-custom btn-primary-custom">Save
-                                    Changes</button>
-                            </form>
-                        </div>
 
                         <!-- Booking section -->
                         <div th:if="${activeTab == 'booking'}"
@@ -135,6 +114,7 @@
                                 Your Booking</h3>
 
                             <div class="grid lg:grid-cols-3 gap-8">
+
                                 <!-- Passenger Details & Seat Selection -->
                                 <div class="lg:col-span-2 space-y-8">
 
@@ -143,7 +123,11 @@
                                         <h4
                                             class="text-xl font-semibold mb-6">Passenger
                                             Details</h4>
-                                        <form class="space-y-6">
+                                        <form class="space-y-6" method="post"
+                                            th:action="@{/booking/confirm}">
+                                            <input type="hidden" name="flightId"
+                                                th:value="${flight.id}" />
+
                                             <div
                                                 class="grid md:grid-cols-2 gap-6">
                                                 <div>
@@ -152,8 +136,10 @@
                                                         Name</label>
                                                     <input type="text"
                                                         id="firstName"
+                                                        name="firstName"
                                                         class="input-field-custom"
-                                                        placeholder="John" />
+                                                        placeholder="John"
+                                                        required />
                                                 </div>
                                                 <div>
                                                     <label for="lastName"
@@ -161,46 +147,49 @@
                                                         Name</label>
                                                     <input type="text"
                                                         id="lastName"
+                                                        name="lastName"
                                                         class="input-field-custom"
-                                                        placeholder="Doe" />
+                                                        placeholder="Doe"
+                                                        required />
                                                 </div>
                                             </div>
+
                                             <div>
                                                 <label for="email"
                                                     class="form-label-custom">Email
                                                     Address</label>
                                                 <input type="email" id="email"
                                                     class="input-field-custom"
-                                                    placeholder="john.doe@example.com" />
+                                                    th:value="${user.email}"
+                                                    readonly />
                                             </div>
+
                                             <div>
                                                 <label for="phone"
                                                     class="form-label-custom">Phone
                                                     Number</label>
                                                 <input type="tel" id="phone"
+                                                    name="phone"
                                                     class="input-field-custom"
-                                                    placeholder="+1 234 567 8900" />
+                                                    placeholder="+1 234 567 8900"
+                                                    required />
                                             </div>
-                                        </form>
-                                    </div>
 
-                                    <!-- Seat Selection Card -->
-                                    <div class="card-custom p-6 md:p-8">
-                                        <h4
-                                            class="text-xl font-semibold mb-6">Select
-                                            Your Seat</h4>
-                                        <div class="overflow-x-auto">
-                                            <div class="card-custom p-6 md:p-8">
-                                                <div>
-                                                    <div id="seatMapContainer"
-                                                        class="grid grid-cols-9 gap-1 md:gap-2 mx-auto w-max p-2 md:p-4 bg-white rounded-lg shadow-inner">
-
-                                                        <!-- Row 1 -->
+                                            <!-- Seat Selection Card -->
+                                            <div
+                                                class="card-custom p-6 md:p-8 mt-6">
+                                                <h4
+                                                    class="text-xl font-semibold mb-6">Select
+                                                    Your Seat</h4>
+                                                <div class="overflow-x-auto">
+                                                    <div
+                                                        class="grid grid-cols-9 gap-1 md:gap-2 mx-auto w-max p-2 md:p-4 bg-white rounded-lg shadow-inner"
+                                                        id="seatMapContainer">
+                                                        <!-- Example: 3 rows x 8 seats -->
                                                         <span
                                                             class="col-span-1 flex items-center justify-center text-gray-500 font-medium">1</span>
                                                         <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
+                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200 hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
                                                             A
                                                             <input
                                                                 type="checkbox"
@@ -209,8 +198,7 @@
                                                                 class="hidden peer" />
                                                         </label>
                                                         <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
+                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200 hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
                                                             B
                                                             <input
                                                                 type="checkbox"
@@ -218,240 +206,57 @@
                                                                 value="1B"
                                                                 class="hidden peer" />
                                                         </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            C
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="1C"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            D
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="1D"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            E
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="1E"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            F
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="1F"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            G
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="1G"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            H
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="1H"
-                                                                class="hidden peer" />
-                                                        </label>
-
-                                                        <!-- Row 2 -->
+                                                        <!-- Add more seats as needed... -->
                                                         <span
                                                             class="col-span-1 flex items-center justify-center text-gray-500 font-medium">2</span>
                                                         <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            A
-                                                            <input
+                                                            class="seat-base ...">A<input
                                                                 type="checkbox"
                                                                 name="seat"
                                                                 value="2A"
-                                                                class="hidden peer" />
-                                                        </label>
+                                                                class="hidden peer" /></label>
                                                         <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            B
-                                                            <input
+                                                            class="seat-base ...">B<input
                                                                 type="checkbox"
                                                                 name="seat"
                                                                 value="2B"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            C
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="2C"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            D
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="2D"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            E
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="2E"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            F
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="2F"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            G
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="2G"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            H
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="2H"
-                                                                class="hidden peer" />
-                                                        </label>
-
-                                                        <!-- Row 3 -->
+                                                                class="hidden peer" /></label>
                                                         <span
                                                             class="col-span-1 flex items-center justify-center text-gray-500 font-medium">3</span>
                                                         <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            A
-                                                            <input
+                                                            class="seat-base ...">A<input
                                                                 type="checkbox"
                                                                 name="seat"
                                                                 value="3A"
-                                                                class="hidden peer" />
-                                                        </label>
+                                                                class="hidden peer" /></label>
                                                         <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            B
-                                                            <input
+                                                            class="seat-base ...">B<input
                                                                 type="checkbox"
                                                                 name="seat"
                                                                 value="3B"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            C
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="3C"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            D
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="3D"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            E
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="3E"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            F
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="3F"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            G
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="3G"
-                                                                class="hidden peer" />
-                                                        </label>
-                                                        <label
-                                                            class="seat-base w-8 h-8 md:w-10 md:h-10 flex items-center justify-center cursor-pointer bg-gray-200 rounded-lg transition-colors duration-200
-                  hover:bg-blue-300 peer-checked:bg-blue-500 peer-checked:text-white">
-                                                            H
-                                                            <input
-                                                                type="checkbox"
-                                                                name="seat"
-                                                                value="3H"
-                                                                class="hidden peer" />
-                                                        </label>
-
+                                                                class="hidden peer" /></label>
                                                     </div>
                                                 </div>
+
+                                                <!-- Hidden input to store selected seat for summary -->
+                                                <input type="hidden"
+                                                    name="selectedSeat"
+                                                    id="selectedSeatInput" />
+                                                <p class="mt-2">Selected Seat:
+                                                    <span
+                                                        id="selectedSeatDisplay">None</span></p>
                                             </div>
 
-                                        </div>
+                                            <!-- Submit Button -->
+                                            <button type="submit"
+                                                id="confirmBookingButton"
+                                                class="btn-custom btn-primary-custom w-full mt-6">
+                                                <i data-lucide="check-circle"
+                                                    class="inline-block mr-1 lucide-sm"></i>
+                                                Confirm & Pay
+                                            </button>
+
+                                        </form>
                                     </div>
 
                                 </div>
@@ -467,17 +272,23 @@
                                         <div class="space-y-3 mb-6">
                                             <div class="flex justify-between">
                                                 <span
-                                                    class="text-gray-600">Flight:
-                                                    AL 205</span>
-                                                <span class="font-medium">JFK <i
-                                                        data-lucide="arrow-right"
-                                                        class="inline-block lucide-sm"></i>
-                                                    LHR</span>
+                                                    class="text-gray-600">Flight:</span>
+                                                <span class="font-medium"
+                                                    th:text="${flight.flightNumber}">AL
+                                                    205</span>
+                                            </div>
+                                            <div class="flex justify-between">
+                                                <span
+                                                    class="text-gray-600">Route:</span>
+                                                <span class="font-medium"
+                                                    th:text="${flight.source} + ' → ' + ${flight.destination}">JFK
+                                                    → LHR</span>
                                             </div>
                                             <div class="flex justify-between">
                                                 <span
                                                     class="text-gray-600">Date:</span>
-                                                <span class="font-medium">Oct
+                                                <span class="font-medium"
+                                                    th:text="${#temporals.format(flight.departureTime, 'dd MMM yyyy')}">Oct
                                                     28, 2024</span>
                                             </div>
                                             <div class="flex justify-between">
@@ -491,7 +302,7 @@
                                                     class="text-gray-600">Selected
                                                     Seat:</span>
                                                 <span class="font-medium"
-                                                    id="selectedSeatDisplay">1E</span>
+                                                    id="selectedSeatSummary">None</span>
                                             </div>
                                         </div>
 
@@ -499,31 +310,26 @@
                                             <div class="flex justify-between">
                                                 <span
                                                     class="text-gray-600">Subtotal:</span>
-                                                <span
-                                                    class="font-medium">$350.00</span>
+                                                <span class="font-medium"
+                                                    th:text="${flight.price} + ' $'">$350.00</span>
                                             </div>
                                             <div class="flex justify-between">
                                                 <span
                                                     class="text-gray-600">Taxes
                                                     & Fees:</span>
-                                                <span
-                                                    class="font-medium">$45.50</span>
+                                                <span class="font-medium"
+                                                    th:text="${flight.price * 0.13} + ' $'">$45.50</span>
                                             </div>
                                             <div
                                                 class="flex justify-between text-xl font-bold text-sky-700">
                                                 <span>Total:</span>
-                                                <span>$395.50</span>
+                                                <span
+                                                    th:text="${flight.price + (flight.price * 0.13)} + ' $'">$395.50</span>
                                             </div>
                                         </div>
-
-                                        <button id="confirmBookingButton"
-                                            class="btn-custom btn-primary-custom w-full mt-8">
-                                            <i data-lucide="check-circle"
-                                                class="inline-block mr-1 lucide-sm"></i>
-                                            Confirm & Pay
-                                        </button>
                                     </div>
                                 </aside>
+
                             </div> <!-- End grid -->
                         </div>
 
@@ -533,5 +339,22 @@
             </div>
         </section>
         <script th:src="@{/script.js}"></script>
+        <!-- Seat Selection JS -->
+        <script>
+                const seatInputs = document.querySelectorAll('input[name="seat"]');
+                const selectedSeatInput = document.getElementById('selectedSeatInput');
+                const selectedSeatDisplay = document.getElementById('selectedSeatDisplay');
+                const selectedSeatSummary = document.getElementById('selectedSeatSummary');
+
+                seatInputs.forEach(seat => {
+                    seat.addEventListener('change', () => {
+                        // Only allow 1 seat selection
+                        seatInputs.forEach(s => { if (s !== seat) s.checked = false; });
+                        selectedSeatInput.value = seat.value;
+                        selectedSeatDisplay.textContent = seat.value;
+                        selectedSeatSummary.textContent = seat.value;
+                    });
+                });
+                </script>
     </body>
 </html>
