@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -44,7 +45,7 @@ public class AdminController {
         if (!checkAdmin(session))
             return "redirect:/";
         model.addAttribute("activeTab", "home");
-        return "admin";
+        return "redirect:/admin/flights";
     }
 
     @GetMapping("/flights")
@@ -55,6 +56,16 @@ public class AdminController {
         model.addAttribute("flights", flights);
         model.addAttribute("activeTab", "flights");
         return "admin";
+    }
+
+    // Delete flight by ID
+    @PostMapping("/flights/delete/{id}")
+    public String deleteFlight(@PathVariable Long id, HttpSession session) {
+        if (!checkAdmin(session)) {
+            return "redirect:/";
+        }
+        flightService.deleteFlightById(id);
+        return "redirect:/admin/flights";
     }
 
     @GetMapping("/users")
