@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,6 +25,8 @@ public class DashboardController {
     private BookingService bookingService;
     @Autowired
     FlightService flightService;
+    @Autowired
+    private UserService userService;
 
     @ModelAttribute
     public void addUserToModel(HttpSession session, Model model) {
@@ -77,6 +80,40 @@ public class DashboardController {
         model.addAttribute("activeTab", "upcoming");
 
         return "dashboard";
+    }
+
+    @GetMapping("/profile")
+    public String profilePage(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "redirect:/login";
+        }
+
+        model.addAttribute("activeTab", "profile");
+        return "dashboard";
+    }
+
+    @PostMapping("/profile")
+    public String updateProfile(@ModelAttribute User updatedUser, HttpSession session,
+            RedirectAttributes redirectAttributes) {
+        User currentUser = (User) session.getAttribute("user");
+        if (currentUser == null) {
+            return "redirect:/login";
+        }
+
+        // Update the user details
+        currentUser.setName(updatedUser.getName());
+        currentUser.setEmail(updatedUser.getEmail());
+
+        try {
+            User savedUser = userService.updateUser(currentUser);
+            session.setAttribute("user", savedUser);
+            redirectAttributes.addFlashAttribute("success", "Profile updated successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Failed to update profile. Please try again.");
+        }
+
+        return "redirect:/dashboard/profile";
     }
 
 }

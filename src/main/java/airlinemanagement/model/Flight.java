@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "flights")
@@ -37,6 +38,9 @@ public class Flight {
 
     @Column(nullable = true)
     private int totalSeats;
+
+    @OneToMany(mappedBy = "flight", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Booking> bookings;
 
     @Override
     public String toString() {

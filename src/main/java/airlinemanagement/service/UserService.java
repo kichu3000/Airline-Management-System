@@ -59,4 +59,20 @@ public class UserService {
             System.out.println(ConsoleColor.GREEN + " Admin already exists." + ConsoleColor.RESET);
         }
     }
+
+    public void deleteUserById(Long id) {
+        if (userRepo.existsById(id)) {
+            userRepo.deleteById(id);
+        } else {
+            throw new RuntimeException("User not found with id: " + id);
+        }
+    }
+
+    public User updateUser(User user) {
+        if (userRepo.existsById(user.getId())) {
+            return userRepo.save(user);
+        } else {
+            throw new RuntimeException("User not found with id: " + user.getId());
+        }
+    }
 }

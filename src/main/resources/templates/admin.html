@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head th:replace="fragments/head :: headFragment"></head>
+    <head th:replace="~{fragments/head :: headFragment}"></head>
     <body class="text-gray-800">
-        <div th:replace="fragments/nav :: navbar"></div>
+        <div th:replace="~{fragments/nav :: navbar}"></div>
 
         <section id="admin-dashboard" class="page-section p-6 md:p-10">
             <div class="max-w-7xl mx-auto">
@@ -147,7 +147,7 @@
                                                 <!-- Delete button -->
                                                 <form
                                                     th:if="${!user.isAdmin}"
-                                                    th:action="@{/admin/users/delete/{id}(id=${user.id})}"
+                                                    th:action="@{/admin/delete/{id}(id=${user.id})}"
                                                     method="post"
                                                     style="display:inline">
                                                     <button type="submit"

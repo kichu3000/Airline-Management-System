@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head th:replace="fragments/head :: headFragment"></head>
+    <head th:replace="~{fragments/head :: headFragment}"></head>
     <body
         class="text-gray-800 bg-gray-50"
         style="background-image: url('/images/loginPlane.jpg'); background-size: cover; background-position: center;">
 
         <!-- Navbar stays at the top -->
-        <div th:replace="fragments/nav :: navbar"></div>
+        <div th:replace="~{fragments/nav :: navbar}"></div>
 
         <!-- Centered login form -->
         <div class="flex items-center justify-center mt-10 mb-10 px-4">

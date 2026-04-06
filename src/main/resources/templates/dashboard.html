@@ -38,6 +38,13 @@
                                         class="mr-3 lucide-sm"></i>
                                     Upcoming Bookings
                                 </a>
+                                <a th:href="@{/dashboard/profile}"
+                                    th:classappend="${activeTab == 'profile'} ? 'bg-sky-100 text-sky-700' : 'text-gray-600'"
+                                    class="dashboard-nav-item flex items-center p-3 rounded-lg hover:bg-sky-100">
+                                    <i data-lucide="user"
+                                        class="mr-3 lucide-sm"></i>
+                                    Update Profile
+                                </a>
 
                             </nav>
 
@@ -93,7 +100,6 @@
 
                             </div>
                         </div>
-
 
                         <!-- Booking section -->
                         <div th:if="${activeTab == 'booking'}"
@@ -319,6 +325,50 @@
                                 </aside>
 
                             </div> <!-- End grid -->
+                        </div>
+
+                        <!-- Profile Update section -->
+                        <div th:if="${activeTab == 'profile'}"
+                            class="dashboard-content card-custom p-6 md:p-8">
+                            <h3 class="text-2xl font-semibold mb-6">Update
+                                Profile</h3>
+
+                            <div th:if="${success}"
+                                class="mb-4 p-4 bg-green-100 border border-green-400 text-green-700 rounded">
+                                <span th:text="${success}"></span>
+                            </div>
+                            <div th:if="${error}"
+                                class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                                <span th:text="${error}"></span>
+                            </div>
+
+                            <form class="space-y-6" method="post"
+                                th:action="@{/dashboard/profile}">
+                                <div>
+                                    <label for="name"
+                                        class="form-label-custom">Full
+                                        Name</label>
+                                    <input type="text" id="name" name="name"
+                                        class="input-field-custom"
+                                        th:value="${user.name}" required />
+                                </div>
+
+                                <div>
+                                    <label for="email"
+                                        class="form-label-custom">Email
+                                        Address</label>
+                                    <input type="email" id="email" name="email"
+                                        class="input-field-custom"
+                                        th:value="${user.email}" required />
+                                </div>
+
+                                <button type="submit"
+                                    class="btn-primary-custom">
+                                    <i data-lucide="save"
+                                        class="inline-block mr-2 lucide-sm"></i>
+                                    Update Profile
+                                </button>
+                            </form>
                         </div>
 
                     </div>

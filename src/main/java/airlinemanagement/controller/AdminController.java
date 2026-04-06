@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -110,5 +111,16 @@ public class AdminController {
             return "redirect:/";
         flightService.createFlight(flight); // Save flight to DB
         return "redirect:/admin/flights"; // Redirect back to flights page
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        try {
+            userService.deleteUserById(id);
+            redirectAttributes.addFlashAttribute("success", "User deleted successfully!");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error deleting user.");
+        }
+        return "redirect:/admin/users"; // redirect back to the users list
     }
 }
